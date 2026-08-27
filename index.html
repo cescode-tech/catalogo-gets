@@ -6,25 +6,15 @@
     <title>Catálogo de Financiamiento - GETS SOLUTIONS</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #5c388e 0%, #7952B3 100%);
             min-height: 100vh;
             padding: 20px;
             color: #333;
         }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
+        .container { max-width: 1400px; margin: 0 auto; }
         .header {
             text-align: center;
             margin-bottom: 40px;
@@ -35,36 +25,10 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.15);
         }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            font-weight: 800;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        }
-
-        .header .subtitle {
-            font-size: 1.1rem;
-            font-weight: 600;
-            opacity: 0.95;
-            color: #43e97b;
-        }
-
-        .controls {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .search-box {
-            flex: 1;
-            min-width: 250px;
-            max-width: 400px;
-            position: relative;
-        }
-
+        .header h1 { font-size: 2.5rem; margin-bottom: 10px; font-weight: 800; text-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        .header .subtitle { font-size: 1.1rem; font-weight: 600; opacity: 0.95; color: #43e97b; }
+        .controls { display: flex; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; justify-content: center; }
+        .search-box { flex: 1; min-width: 250px; max-width: 400px; position: relative; }
         .search-box input {
             width: 100%;
             padding: 12px 40px 12px 16px;
@@ -72,34 +36,16 @@
             border-radius: 10px;
             font-size: 1rem;
             background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
             transition: all 0.3s ease;
         }
-
         .search-box input:focus {
             outline: none;
             border-color: #43e97b;
             box-shadow: 0 0 15px rgba(67,233,123,0.3);
             background: white;
         }
-
-        .search-box i {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #7952B3;
-            pointer-events: none;
-        }
-
-        .category-tabs {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-bottom: 30px;
-        }
-
+        .search-box i { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #7952B3; pointer-events: none; }
+        .category-tabs { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 30px; }
         .tab-btn {
             padding: 12px 20px;
             background: rgba(255,255,255,0.15);
@@ -110,29 +56,10 @@
             font-weight: 600;
             font-size: 0.95rem;
             transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
         }
-
-        .tab-btn:hover {
-            background: rgba(255,255,255,0.25);
-            border-color: rgba(255,255,255,0.5);
-            transform: translateY(-2px);
-        }
-
-        .tab-btn.active {
-            background: #43e97b;
-            border-color: #43e97b;
-            color: #5c388e;
-            box-shadow: 0 8px 25px rgba(67,233,123,0.4);
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
+        .tab-btn:hover { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.5); transform: translateY(-2px); }
+        .tab-btn.active { background: #43e97b; border-color: #43e97b; color: #5c388e; box-shadow: 0 8px 25px rgba(67,233,123,0.4); }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; margin-bottom: 40px; }
         .product-card {
             background: white;
             border-radius: 12px;
@@ -140,178 +67,31 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             transition: all 0.3s ease;
             border-left: 5px solid #5c388e;
-            animation: slideUp 0.4s ease-out;
         }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-        }
-
-        .product-name {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #5c388e;
-            margin-bottom: 12px;
-            line-height: 1.4;
-        }
-
-        .product-info {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 15px;
-            font-size: 0.95rem;
-        }
-
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .info-row:last-child {
-            border-bottom: none;
-        }
-
-        .info-label {
-            color: #666;
-            font-weight: 600;
-        }
-
-        .info-value {
-            color: #5c388e;
-            font-weight: 700;
-            text-align: right;
-        }
-
-        .quincena-badge {
-            display: inline-block;
-            background: #43e97b;
-            color: #5c388e;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            margin-top: 8px;
-        }
-
-        .benefits {
-            background: #f8f9fa;
-            border-left: 4px solid #43e97b;
-            padding: 10px 12px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            color: #555;
-            margin-top: 15px;
-            line-height: 1.5;
-        }
-
-        .benefits strong {
-            color: #5c388e;
-        }
-
-        .table-view {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            margin-bottom: 40px;
-        }
-
-        .table-view table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .table-view th {
-            background: linear-gradient(135deg, #5c388e 0%, #7952B3 100%);
-            color: white;
-            padding: 15px;
-            text-align: left;
-            font-weight: 700;
-            border-bottom: 3px solid #5c388e;
-        }
-
-        .table-view td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .table-view tr:hover {
-            background: #f5f5f5;
-        }
-
-        .toggle-view {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-
-        .view-btn {
-            padding: 10px 20px;
-            background: rgba(255,255,255,0.2);
-            border: 2px solid rgba(255,255,255,0.4);
-            color: white;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .view-btn.active {
-            background: white;
-            color: #5c388e;
-            border-color: white;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 40px;
-            color: rgba(255,255,255,0.8);
-            font-size: 1.1rem;
-        }
-
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.2); }
+        .product-name { font-size: 1.1rem; font-weight: 700; color: #5c388e; margin-bottom: 12px; line-height: 1.4; }
+        .product-info { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; font-size: 0.95rem; }
+        .info-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f0f0f0; }
+        .info-row:last-child { border-bottom: none; }
+        .info-label { color: #666; font-weight: 600; }
+        .info-value { color: #5c388e; font-weight: 700; text-align: right; }
+        .quincena-badge { display: inline-block; background: #43e97b; color: #5c388e; padding: 4px 10px; border-radius: 6px; font-size: 0.85rem; font-weight: 700; margin-top: 8px; }
+        .toggle-view { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; }
+        .view-btn { padding: 10px 20px; background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.4); color: white; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; }
+        .view-btn.active { background: white; color: #5c388e; border-color: white; }
+        .table-view { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.15); margin-bottom: 40px; }
+        .table-view table { width: 100%; border-collapse: collapse; }
+        .table-view th { background: linear-gradient(135deg, #5c388e 0%, #7952B3 100%); color: white; padding: 15px; text-align: left; font-weight: 700; border-bottom: 3px solid #5c388e; }
+        .table-view td { padding: 12px 15px; border-bottom: 1px solid #e0e0e0; }
+        .table-view tr:hover { background: #f5f5f5; }
+        .hidden { display: none !important; }
+        .empty-state { text-align: center; padding: 40px; color: rgba(255,255,255,0.8); font-size: 1.1rem; }
+        .stats { text-align: center; color: rgba(255,255,255,0.9); margin-top: 20px; font-size: 0.95rem; }
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 1.8rem;
-            }
-
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .controls {
-                flex-direction: column;
-            }
-
-            .search-box {
-                max-width: 100%;
-            }
-        }
-
-        .stats {
-            text-align: center;
-            color: rgba(255,255,255,0.9);
-            margin-top: 20px;
-            font-size: 0.95rem;
+            .header h1 { font-size: 1.8rem; }
+            .products-grid { grid-template-columns: 1fr; }
+            .controls { flex-direction: column; }
+            .search-box { max-width: 100%; }
         }
     </style>
 </head>
@@ -321,7 +101,7 @@
             <h1>🛍️ GETS SOLUTIONS</h1>
             <p class="subtitle">Catálogo de Financiamiento - Septiembre 2026</p>
             <div class="stats">
-                <span id="productCount">Total: 101 productos</span>
+                <span id="productCount">Total: 102 productos</span>
             </div>
         </div>
 
@@ -351,138 +131,648 @@
     </div>
 
     <script>
-        const dataCatalogo = {
-            "Amparados iPhone": {
+const dataCatalogo = {
+        "Amparados iPhone": {
                 "quincenas": 12,
                 "tipo": "sin_inicial",
                 "beneficios": [],
                 "productos": [
-                    {"nombre": "iphone 13 128 gb usado", "monto": 600000, "cuota": 98919, "quincenas": 12},
-                    {"nombre": "iphone 13 256 gb usado", "monto": 650000, "cuota": 105357, "quincenas": 12},
-                    {"nombre": "iphone 13 pro 128 gb usado", "monto": 750000, "cuota": 118232, "quincenas": 12},
-                    {"nombre": "iphone 13 pro 256 gb usado", "monto": 800000, "cuota": 124670, "quincenas": 12},
-                    {"nombre": "iphone 13 pro 512 gb usado", "monto": 850000, "cuota": 131108, "quincenas": 12},
-                    {"nombre": "iphone 13 pro max 128 gb usado", "monto": 900000, "cuota": 137546, "quincenas": 12},
-                    {"nombre": "iphone 13 pro max 256 gb usado", "monto": 975000, "cuota": 147202, "quincenas": 12},
-                    {"nombre": "iphone 14 de 128 gb usado", "monto": 700000, "cuota": 111795, "quincenas": 12},
-                    {"nombre": "iphone 14 256 gb usado", "monto": 750000, "cuota": 118232, "quincenas": 12},
-                    {"nombre": "iphone 14 pro 128 gb usado", "monto": 900000, "cuota": 137546, "quincenas": 12},
-                    {"nombre": "iphone 14 pro 256 gb usado", "monto": 950000, "cuota": 143984, "quincenas": 12},
-                    {"nombre": "iphone 14 pro 512 gb usado", "monto": 1050000, "cuota": 156862, "quincenas": 12},
-                    {"nombre": "iphone 14 pro max 128 gb usado", "monto": 1000000, "cuota": 150421, "quincenas": 12},
-                    {"nombre": "iphone 14 pro max 256 gb usado", "monto": 1100000, "cuota": 163299, "quincenas": 12},
-                    {"nombre": "iphone 14 pro max 512 gb usado", "monto": 1200000, "cuota": 176177, "quincenas": 12},
-                    {"nombre": "iphone 15 128 gb usado", "monto": 800000, "cuota": 124670, "quincenas": 12},
-                    {"nombre": "iphone 15 256 gb usado", "monto": 900000, "cuota": 137546, "quincenas": 12},
-                    {"nombre": "iphone 15 pro 128 gb usado", "monto": 1100000, "cuota": 163299, "quincenas": 12},
-                    {"nombre": "iphone 15 pro 256 gb usado", "monto": 1200000, "cuota": 176177, "quincenas": 12},
-                    {"nombre": "iphone 15 pro 512 gb usado", "monto": 1300000, "cuota": 189055, "quincenas": 12},
-                    {"nombre": "iphone 15 pro max 128 gb usado", "monto": 1250000, "cuota": 182615, "quincenas": 12},
-                    {"nombre": "iphone 15 pro max 256 gb usado", "monto": 1350000, "cuota": 195493, "quincenas": 12},
-                    {"nombre": "iphone 15 pro max 512 gb usado", "monto": 1450000, "cuota": 208371, "quincenas": 12},
-                    {"nombre": "samsung galaxy s23 128 gb usado", "monto": 650000, "cuota": 105357, "quincenas": 12},
-                    {"nombre": "samsung galaxy s23 ultra 256 gb usado", "monto": 850000, "cuota": 131108, "quincenas": 12},
-                    {"nombre": "samsung galaxy a54 128 gb usado", "monto": 500000, "cuota": 86041, "quincenas": 12},
-                    {"nombre": "samsung galaxy a74 128 gb usado", "monto": 550000, "cuota": 92479, "quincenas": 12},
-                    {"nombre": "samsung galaxy z fold 128 gb usado", "monto": 1200000, "cuota": 176177, "quincenas": 12},
-                    {"nombre": "samsung galaxy z flip 128 gb usado", "monto": 900000, "cuota": 137546, "quincenas": 12},
-                    {"nombre": "oneplus 11 128 gb usado", "monto": 600000, "cuota": 98919, "quincenas": 12},
-                    {"nombre": "oneplus 11 pro 256 gb usado", "monto": 750000, "cuota": 118232, "quincenas": 12},
-                    {"nombre": "xiaomi 13 pro 256 gb usado", "monto": 700000, "cuota": 111795, "quincenas": 12},
-                    {"nombre": "xiaomi redmi note 12 128 gb usado", "monto": 450000, "cuota": 79603, "quincenas": 12},
-                    {"nombre": "pixel 8 pro 128 gb usado", "monto": 900000, "cuota": 137546, "quincenas": 12},
-                    {"nombre": "pixel 8 256 gb usado", "monto": 800000, "cuota": 124670, "quincenas": 12},
-                    {"nombre": "motorola edge 50 pro 256 gb usado", "monto": 650000, "cuota": 105357, "quincenas": 12},
-                    {"nombre": "motorola razr 40 ultra 256 gb usado", "monto": 750000, "cuota": 118232, "quincenas": 12},
-                    {"nombre": "poco x5 128 gb usado", "monto": 550000, "cuota": 92479, "quincenas": 12},
-                    {"nombre": "poco x5 pro 256 gb usado", "monto": 650000, "cuota": 105357, "quincenas": 12},
-                    {"nombre": "realme 11 pro 256 gb usado", "monto": 600000, "cuota": 98919, "quincenas": 12},
-                    {"nombre": "realme gt neo 256 gb usado", "monto": 700000, "cuota": 111795, "quincenas": 12},
-                    {"nombre": "huawei p60 pro 256 gb usado", "monto": 800000, "cuota": 124670, "quincenas": 12}
+                        {
+                                "nombre": "iphone 13 128 gb usado",
+                                "monto": 600000,
+                                "cuota": 98919,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 13 256 gb usado",
+                                "monto": 650000,
+                                "cuota": 105357,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 13 pro 128 gb usado",
+                                "monto": 750000,
+                                "cuota": 118232,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 13 pro 256 gb usado",
+                                "monto": 800000,
+                                "cuota": 124670,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 13 pro 512 gb usado",
+                                "monto": 850000,
+                                "cuota": 131108,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 13 pro max 128 gb usado",
+                                "monto": 900000,
+                                "cuota": 137546,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 13 pro max 256 gb usado",
+                                "monto": 975000,
+                                "cuota": 147202,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 14 de 128 gb usado",
+                                "monto": 700000,
+                                "cuota": 111795,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 14 plus 128 gb usado",
+                                "monto": 700000,
+                                "cuota": 111795,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 14 pro 128 gb usado",
+                                "monto": 875000,
+                                "cuota": 134327,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 14 pro 256 gb usado",
+                                "monto": 1000000,
+                                "cuota": 150421,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 14 pro max 128 gb usado",
+                                "monto": 1000000,
+                                "cuota": 150421,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 14 pro max 256 gb usado",
+                                "monto": 1100000,
+                                "cuota": 163296,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 15 128 gb usado",
+                                "monto": 900000,
+                                "cuota": 137546,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 15 plus 128 gb usado",
+                                "monto": 1000000,
+                                "cuota": 150421,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 15 pro 128 gb usado",
+                                "monto": 1075000,
+                                "cuota": 160078,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 15 pro 256 gb usado",
+                                "monto": 1100000,
+                                "cuota": 163296,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 15 pro 512 gb usado",
+                                "monto": 1175000,
+                                "cuota": 172953,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 15 pro max 256 gb usado",
+                                "monto": 1200000,
+                                "cuota": 176172,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 15 pro max 512 gb usado",
+                                "monto": 1300000,
+                                "cuota": 189047,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 16 128 gb usado",
+                                "monto": 1100000,
+                                "cuota": 163296,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 16 plus 128 gb usado",
+                                "monto": 1200000,
+                                "cuota": 176172,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 16 pro 128 gb usado",
+                                "monto": 1365000,
+                                "cuota": 197416,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 16 pro 256 gb usado",
+                                "monto": 1450000,
+                                "cuota": 208360,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 16 pro max 256 gb usado",
+                                "monto": 1625000,
+                                "cuota": 230892,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 17 256gb usado",
+                                "monto": 1350000,
+                                "cuota": 195485,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 17 pro 256gb",
+                                "monto": 1700000,
+                                "cuota": 240549,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 17 pro 512 gb",
+                                "monto": 1800000,
+                                "cuota": 253424,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 17 pro max 256gb",
+                                "monto": 1800000,
+                                "cuota": 253424,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 17 pro max 512 gb",
+                                "monto": 2100000,
+                                "cuota": 292051,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "ipad a16 128 gb nuevo",
+                                "monto": 750000,
+                                "cuota": 118232,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 13 128 gb nuevo",
+                                "monto": 850000,
+                                "cuota": 131108,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 14 128 gb nuevo",
+                                "monto": 900000,
+                                "cuota": 137546,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 15 128 gb nuevo",
+                                "monto": 1100000,
+                                "cuota": 163296,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 16 128 gb nuevo",
+                                "monto": 1200000,
+                                "cuota": 176172,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 16 pro max 256gb nuevo",
+                                "monto": 1725000,
+                                "cuota": 243768,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 17 256 gb nuevo",
+                                "monto": 1500000,
+                                "cuota": 214798,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 17 pro 256 gb nuevo",
+                                "monto": 1800000,
+                                "cuota": 253424,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 17 pro 512 gb nuevo",
+                                "monto": 2200000,
+                                "cuota": 304926,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 17 pro max 256 gb nuevo",
+                                "monto": 2000000,
+                                "cuota": 279175,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 17 pro max 512 gb nuevo",
+                                "monto": 2300000,
+                                "cuota": 317801,
+                                "quincenas": 12
+                        }
                 ]
-            },
-            "iPhone con Cuota Inicial": {
+        },
+        "Androide con Cuota Inicial": {
+                "quincenas": 16,
+                "tipo": "con_inicial",
+                "beneficios": [],
+                "productos": [
+                        {
+                                "nombre": "honor x5d 128 gb 4 ram",
+                                "inicial": 100000,
+                                "cuota": 84415,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "honor x5d 256 gb 4 ram",
+                                "inicial": 150000,
+                                "cuota": 90041,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "honor x6c 128gb 6ram",
+                                "inicial": 150000,
+                                "cuota": 84415,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "Honor Play 10 64 gb 4 ram",
+                                "inicial": 80000,
+                                "cuota": 72706,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "infinix note edge 256 gb 8 ram",
+                                "inicial": 450000,
+                                "cuota": 90041,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "infinix hot 70 8ram 256gb",
+                                "inicial": 250000,
+                                "cuota": 90041,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "infinix smart 10 128 gb 4 ram",
+                                "inicial": 100000,
+                                "cuota": 84415,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "infinix smart 20 128 gb 4 ram",
+                                "inicial": 130000,
+                                "cuota": 84415,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "infinix smart 20 64 gb 4 ram",
+                                "inicial": 100000,
+                                "cuota": 72706,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "infinix xpad 20 128gb 3ram",
+                                "inicial": 200000,
+                                "cuota": 90041,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "kalley black e 64gb 4ram",
+                                "inicial": 50000,
+                                "cuota": 50660,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "moto g06 128gb 4ram",
+                                "inicial": 130000,
+                                "cuota": 84415,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "moto g17 power 4ram 256gb",
+                                "inicial": 300000,
+                                "cuota": 90041,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "oppo a5x 128gb 4ram",
+                                "inicial": 200000,
+                                "cuota": 90041,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "redmi 15c 4ram 128gb",
+                                "inicial": 150000,
+                                "cuota": 90041,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "redmi 15c 4ram 256gb",
+                                "inicial": 200000,
+                                "cuota": 90041,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "xiaomi redmi 15 6ram 128gb",
+                                "inicial": 250000,
+                                "cuota": 90041,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "xiaomi redmi note 15 6ram 128gb",
+                                "inicial": 300000,
+                                "cuota": 90041,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "xioami redmi a7 64gb",
+                                "inicial": 80000,
+                                "cuota": 72706,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "xioami redmi a7 pro 64gb",
+                                "inicial": 100000,
+                                "cuota": 72706,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "samsung a07 64gb 4ram",
+                                "inicial": 100000,
+                                "cuota": 72706,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "samsung a17 128 6 ram",
+                                "inicial": 200000,
+                                "cuota": 90041,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "tecno go 3 128gb 4ram",
+                                "inicial": 130000,
+                                "cuota": 84415,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "tecno go 3 64gb 4ram",
+                                "inicial": 100000,
+                                "cuota": 72706,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "tecno spark 50 4ram 256gb",
+                                "inicial": 300000,
+                                "cuota": 90041,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "vivo y04 4ram 128gb",
+                                "inicial": 200000,
+                                "cuota": 90041,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "vivo y05 4ram 128gb",
+                                "inicial": 200000,
+                                "cuota": 90041,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "zte a56 4ram 128gb",
+                                "inicial": 80000,
+                                "cuota": 72706,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "zte a56 pro 4ram 128gb",
+                                "inicial": 80000,
+                                "cuota": 72706,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "zte blade a35e 64gb",
+                                "inicial": 50000,
+                                "cuota": 50660,
+                                "quincenas": 16
+                        }
+                ]
+        },
+        "Televisores con Cuota Inicial": {
+                "quincenas": 16,
+                "tipo": "con_inicial",
+                "beneficios": [],
+                "productos": [
+                        {
+                                "nombre": "smart tv kalley 40\"",
+                                "inicial": 350000,
+                                "cuota": 116350,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "smart tv kalley 43\"",
+                                "inicial": 450000,
+                                "cuota": 127494,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "tcl 50 pulgadas google tv",
+                                "inicial": 600000,
+                                "cuota": 127494,
+                                "quincenas": 16
+                        },
+                        {
+                                "nombre": "tcl 55 pulgadas google tv",
+                                "inicial": 750000,
+                                "cuota": 127494,
+                                "quincenas": 16
+                        }
+                ]
+        },
+        "iPhone con Cuota Inicial": {
                 "quincenas": 12,
                 "tipo": "con_inicial",
-                "beneficios": ["50% en últimas 4 cuotas si paga puntualmente primeras 8 quincenas"],
+                "beneficios": [],
                 "productos": [
-                    {"nombre": "ipad a16 128 gb nuevo", "inicial": 700000, "cuota": 160007, "quincenas": 12},
-                    {"nombre": "iphone 13 de 128gb nuevo", "inicial": 1000000, "cuota": 160007, "quincenas": 12},
-                    {"nombre": "iphone 14 128 gb nuevo", "inicial": 1200000, "cuota": 179362, "quincenas": 12},
-                    {"nombre": "iphone 14 256 gb nuevo", "inicial": 1300000, "cuota": 195493, "quincenas": 12},
-                    {"nombre": "iphone 14 pro 128 gb nuevo", "inicial": 1400000, "cuota": 211624, "quincenas": 12},
-                    {"nombre": "iphone 14 pro 256 gb nuevo", "inicial": 1500000, "cuota": 227755, "quincenas": 12},
-                    {"nombre": "iphone 14 pro 512 gb nuevo", "inicial": 1600000, "cuota": 243886, "quincenas": 12},
-                    {"nombre": "iphone 14 pro max 128 gb nuevo", "inicial": 1500000, "cuota": 227755, "quincenas": 12},
-                    {"nombre": "iphone 14 pro max 256 gb nuevo", "inicial": 1600000, "cuota": 243886, "quincenas": 12},
-                    {"nombre": "iphone 14 pro max 512 gb nuevo", "inicial": 1700000, "cuota": 260017, "quincenas": 12},
-                    {"nombre": "iphone 15 128 gb nuevo", "inicial": 1300000, "cuota": 195493, "quincenas": 12},
-                    {"nombre": "iphone 15 256 gb nuevo", "inicial": 1400000, "cuota": 211624, "quincenas": 12},
-                    {"nombre": "iphone 15 pro 128 gb nuevo", "inicial": 1600000, "cuota": 243886, "quincenas": 12},
-                    {"nombre": "iphone 15 pro 256 gb nuevo", "inicial": 1700000, "cuota": 260017, "quincenas": 12},
-                    {"nombre": "iphone 15 pro 512 gb nuevo", "inicial": 1800000, "cuota": 276148, "quincenas": 12},
-                    {"nombre": "iphone 15 pro max 128 gb nuevo", "inicial": 1750000, "cuota": 268082, "quincenas": 12},
-                    {"nombre": "iphone 15 pro max 256 gb nuevo", "inicial": 1850000, "cuota": 284213, "quincenas": 12},
-                    {"nombre": "iphone 15 pro max 512 gb nuevo", "inicial": 1950000, "cuota": 300344, "quincenas": 12},
-                    {"nombre": "ipad pro 11 128 gb nuevo", "inicial": 900000, "cuota": 200009, "quincenas": 12},
-                    {"nombre": "ipad pro 12.9 256 gb nuevo", "inicial": 1100000, "cuota": 240012, "quincenas": 12},
-                    {"nombre": "ipad air 128 gb nuevo", "inicial": 800000, "cuota": 177144, "quincenas": 12},
-                    {"nombre": "apple watch ultra nuevo", "inicial": 400000, "cuota": 96007, "quincenas": 12},
-                    {"nombre": "apple watch series 9 nuevo", "inicial": 300000, "cuota": 72005, "quincenas": 12},
-                    {"nombre": "airpods pro gen 2 nuevo", "inicial": 150000, "cuota": 36003, "quincenas": 12},
-                    {"nombre": "airpods max nuevo", "inicial": 250000, "cuota": 60005, "quincenas": 12},
-                    {"nombre": "macbook air m2 256 gb nuevo", "inicial": 2500000, "cuota": 400017, "quincenas": 12},
-                    {"nombre": "macbook pro m2 512 gb nuevo", "inicial": 3200000, "cuota": 520022, "quincenas": 12}
+                        {
+                                "nombre": "ipad a16 128 gb nuevo",
+                                "inicial": 700000,
+                                "cuota": 160007,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 13 de 128gb nuevo",
+                                "inicial": 1000000,
+                                "cuota": 160007,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 14 128 gb nuevo",
+                                "inicial": 1200000,
+                                "cuota": 179362,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 15 128 gb nuevo",
+                                "inicial": 1400000,
+                                "cuota": 200008,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 16 128 gb nuevo",
+                                "inicial": 1600000,
+                                "cuota": 228045,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 17 256 gb nuevo",
+                                "inicial": 1900000,
+                                "cuota": 240009,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 17 pro 256 gb nuevo",
+                                "inicial": 2500000,
+                                "cuota": 306317,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 17 pro max 256gb nuevo",
+                                "inicial": 2800000,
+                                "cuota": 306317,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 13 128gb usado",
+                                "inicial": 500000,
+                                "cuota": 160007,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 13 pro 128 gb usado",
+                                "inicial": 900000,
+                                "cuota": 160007,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 13 pro 256 gb usado",
+                                "inicial": 1000000,
+                                "cuota": 160007,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 13 pro max 128gb usado",
+                                "inicial": 1100000,
+                                "cuota": 160007,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 13 pro max 256gb usado",
+                                "inicial": 1200000,
+                                "cuota": 179362,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 14 128gb usado",
+                                "inicial": 800000,
+                                "cuota": 160007,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 14 pro 128gb usado",
+                                "inicial": 1000000,
+                                "cuota": 179362,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 14 pro 256 gb usado",
+                                "inicial": 1200000,
+                                "cuota": 179362,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 14 pro max 128gb usado",
+                                "inicial": 1200000,
+                                "cuota": 200008,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 14 pro max 256gb usado",
+                                "inicial": 1400000,
+                                "cuota": 200008,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 15 128gb usado",
+                                "inicial": 1000000,
+                                "cuota": 200008,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 15 pro 128 gb usado",
+                                "inicial": 1200000,
+                                "cuota": 228045,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 15 pro 256 gb usado",
+                                "inicial": 1400000,
+                                "cuota": 228045,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 15 pro max 256gb usado",
+                                "inicial": 1500000,
+                                "cuota": 240009,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 16 128 gb usado",
+                                "inicial": 1400000,
+                                "cuota": 200008,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 16 pro 128 gb usado",
+                                "inicial": 1500000,
+                                "cuota": 286637,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 16 pro 256gb usado",
+                                "inicial": 1600000,
+                                "cuota": 286637,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 16 pro max 256gb usado",
+                                "inicial": 1800000,
+                                "cuota": 306317,
+                                "quincenas": 12
+                        },
+                        {
+                                "nombre": "iphone 17 pro max 256gb usado",
+                                "inicial": 2500000,
+                                "cuota": 306317,
+                                "quincenas": 12
+                        }
                 ]
-            },
-            "Androide con Cuota Inicial": {
-                "quincenas": 16,
-                "tipo": "con_inicial",
-                "beneficios": ["50% en últimas 8 cuotas si paga puntualmente primeras 8 quincenas", "Aplica para reportados y sin vida crediticia"],
-                "productos": [
-                    {"nombre": "honor x5d 128 gb 4 ram", "inicial": 100000, "cuota": 84415, "quincenas": 16},
-                    {"nombre": "honor x5d 256 gb 4 ram", "inicial": 150000, "cuota": 90041, "quincenas": 16},
-                    {"nombre": "honor x6c 128gb 6ram", "inicial": 150000, "cuota": 84415, "quincenas": 16},
-                    {"nombre": "Honor Play 10 64 gb 4 ram", "inicial": 80000, "cuota": 72706, "quincenas": 16},
-                    {"nombre": "realme c55 128 gb nuevo", "inicial": 120000, "cuota": 78589, "quincenas": 16},
-                    {"nombre": "realme 11 pro 256 gb nuevo", "inicial": 200000, "cuota": 95244, "quincenas": 16},
-                    {"nombre": "poco x5 256 gb nuevo", "inicial": 180000, "cuota": 90041, "quincenas": 16},
-                    {"nombre": "xiaomi redmi note 12 128 gb nuevo", "inicial": 150000, "cuota": 84415, "quincenas": 16},
-                    {"nombre": "xiaomi redmi note 12 pro 256 gb nuevo", "inicial": 200000, "cuota": 95244, "quincenas": 16},
-                    {"nombre": "motorola g54 256 gb nuevo", "inicial": 180000, "cuota": 90041, "quincenas": 16},
-                    {"nombre": "motorola edge 40 256 gb nuevo", "inicial": 220000, "cuota": 100871, "quincenas": 16},
-                    {"nombre": "samsung galaxy a54 128 gb nuevo", "inicial": 200000, "cuota": 95244, "quincenas": 16},
-                    {"nombre": "samsung galaxy a54 256 gb nuevo", "inicial": 250000, "cuota": 106073, "quincenas": 16},
-                    {"nombre": "samsung galaxy a74 128 gb nuevo", "inicial": 250000, "cuota": 106073, "quincenas": 16},
-                    {"nombre": "samsung galaxy a74 256 gb nuevo", "inicial": 300000, "cuota": 116902, "quincenas": 16},
-                    {"nombre": "oneplus 12 256 gb nuevo", "inicial": 350000, "cuota": 127731, "quincenas": 16},
-                    {"nombre": "oneplus 12 512 gb nuevo", "inicial": 400000, "cuota": 138560, "quincenas": 16},
-                    {"nombre": "pixel 8 128 gb nuevo", "inicial": 280000, "cuota": 112179, "quincenas": 16},
-                    {"nombre": "pixel 8 256 gb nuevo", "inicial": 350000, "cuota": 127731, "quincenas": 16},
-                    {"nombre": "pixel 8 pro 256 gb nuevo", "inicial": 400000, "cuota": 138560, "quincenas": 16},
-                    {"nombre": "asus zenfone 11 ultra 256 gb nuevo", "inicial": 300000, "cuota": 116902, "quincenas": 16},
-                    {"nombre": "asus rog phone 8 pro 512 gb nuevo", "inicial": 450000, "cuota": 149389, "quincenas": 16},
-                    {"nombre": "nubia z60 ultra 256 gb nuevo", "inicial": 280000, "cuota": 112179, "quincenas": 16},
-                    {"nombre": "infinix note 30 pro 256 gb nuevo", "inicial": 120000, "cuota": 78589, "quincenas": 16},
-                    {"nombre": "tecno phantom x2 pro 256 gb nuevo", "inicial": 140000, "cuota": 83813, "quincenas": 16},
-                    {"nombre": "moto razr 40 ultra 256 gb nuevo", "inicial": 300000, "cuota": 116902, "quincenas": 16},
-                    {"nombre": "nothing phone 2a 128 gb nuevo", "inicial": 160000, "cuota": 88236, "quincenas": 16},
-                    {"nombre": "sony xperia 1 v 256 gb nuevo", "inicial": 350000, "cuota": 127731, "quincenas": 16},
-                    {"nombre": "vivo x100 pro 512 gb nuevo", "inicial": 400000, "cuota": 138560, "quincenas": 16}
-                ]
-            },
-            "Televisores con Cuota Inicial": {
-                "quincenas": 16,
-                "tipo": "con_inicial",
-                "beneficios": ["50% en últimas 8 cuotas si paga puntualmente primeras 8 quincenas", "Aplica para reportados y sin vida crediticia"],
-                "productos": [
-                    {"nombre": "smart tv kalley 40\"", "inicial": 350000, "cuota": 116350, "quincenas": 16},
-                    {"nombre": "smart tv kalley 43\"", "inicial": 450000, "cuota": 127494, "quincenas": 16},
-                    {"nombre": "tcl 50 pulgadas google tv", "inicial": 600000, "cuota": 127494, "quincenas": 16},
-                    {"nombre": "samsung 55\" qled 4k", "inicial": 800000, "cuota": 149389, "quincenas": 16}
-                ]
-            }
-        };
+        }
+};
 
         let currentView = 'grid';
         let currentCategory = 'all';
@@ -512,16 +802,13 @@
 
         function filterProducts() {
             let products = getAllProducts();
-
             if (currentCategory !== 'all') {
                 products = products.filter(p => p.category === currentCategory);
             }
-
             if (currentSearch) {
                 const search = currentSearch.toLowerCase();
                 products = products.filter(p => p.nombre.toLowerCase().includes(search));
             }
-
             return products;
         }
 
@@ -548,7 +835,7 @@
                 if (product.tipo === 'sin_inicial') {
                     infoHTML = `
                         <div class="info-row">
-                            <span class="info-label">Monto Máximo</span>
+                            <span class="info-label">Monto Máximo a Financiar</span>
                             <span class="info-value">${formatCurrency(product.monto)}</span>
                         </div>
                         <div class="info-row">
@@ -569,21 +856,10 @@
                     `;
                 }
 
-                let benefitsHTML = '';
-                if (product.beneficios && product.beneficios.length > 0) {
-                    benefitsHTML = `
-                        <div class="benefits">
-                            <strong>✨ Beneficios:</strong><br>
-                            ${product.beneficios.map(b => `• ${b}`).join('<br>')}
-                        </div>
-                    `;
-                }
-
                 card.innerHTML = `
                     <div class="product-name">${product.nombre}</div>
                     <div class="product-info">${infoHTML}</div>
                     <div class="quincena-badge">${product.quincenas} quincenas</div>
-                    ${benefitsHTML}
                 `;
                 grid.appendChild(card);
             });
@@ -607,16 +883,13 @@
             document.getElementById('productsGrid').classList.add('hidden');
             tableDiv.classList.remove('hidden');
 
-            const headers = ['Producto', 'Categoría', 'Cuotas', 'Inicial/Monto', 'Cuota Q', 'Beneficios'];
+            const headers = ['Producto', 'Categoría', 'Cuotas', 'Cuota Inicial', 'Cuota Quincena'];
             let html = '<table><thead><tr>';
             headers.forEach(h => html += `<th>${h}</th>`);
             html += '</tr></thead><tbody>';
 
             products.forEach(product => {
-                const montoLabel = product.tipo === 'sin_inicial' ? 'Monto' : 'Inicial';
                 const montoValue = product.tipo === 'sin_inicial' ? product.monto : product.inicial;
-                const benefits = product.beneficios ? product.beneficios.join(' | ') : 'Sin beneficios especiales';
-
                 html += `
                     <tr>
                         <td>${product.nombre}</td>
@@ -624,7 +897,6 @@
                         <td>${product.quincenas}Q</td>
                         <td>${formatCurrency(montoValue)}</td>
                         <td>${formatCurrency(product.cuota)}</td>
-                        <td>${benefits}</td>
                     </tr>
                 `;
             });
