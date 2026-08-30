@@ -141,7 +141,7 @@
             <h1>🟣 GETS · PRECIOS SUMAS PAY</h1>
             <p class="subtitle" id="subtitulo">Catálogo de Financiamiento</p>
             <div class="stats">
-                <span id="productCount">Total: 146 productos</span>
+                <span id="productCount">Total: 139 productos</span>
             </div>
         </div>
 
@@ -204,42 +204,6 @@
                                 }
                         },
                         {
-                                "nombre": "iPhone 12 128GB",
-                                "precio": 1152900,
-                                "estado": "Usado",
-                                "grupo": "iPhone Usado",
-                                "specs": {
-                                        "Pantalla": "6.1\" Super Retina XDR OLED",
-                                        "Chip": "Apple A14 Bionic",
-                                        "Cámara": "Doble 12 MP · gran angular y ultra gran angular",
-                                        "Sistema": "iOS · 5G"
-                                }
-                        },
-                        {
-                                "nombre": "iPhone 12 256GB",
-                                "precio": 1235300,
-                                "estado": "Usado",
-                                "grupo": "iPhone Usado",
-                                "specs": {
-                                        "Pantalla": "6.1\" Super Retina XDR OLED",
-                                        "Chip": "Apple A14 Bionic",
-                                        "Cámara": "Doble 12 MP · gran angular y ultra gran angular",
-                                        "Sistema": "iOS · 5G"
-                                }
-                        },
-                        {
-                                "nombre": "iPhone 11 PRO MAX 64GB",
-                                "precio": 1294100,
-                                "estado": "Usado",
-                                "grupo": "iPhone Usado",
-                                "specs": {
-                                        "Pantalla": "6.5\" Super Retina XDR OLED",
-                                        "Chip": "Apple A13 Bionic",
-                                        "Cámara": "Triple 12 MP · gran angular, ultra gran angular y teleobjetivo",
-                                        "Sistema": "iOS"
-                                }
-                        },
-                        {
                                 "nombre": "iPhone 13 128GB",
                                 "precio": 1411800,
                                 "estado": "Usado",
@@ -249,18 +213,6 @@
                                         "Chip": "Apple A15 Bionic",
                                         "Cámara": "Doble 12 MP · Gran angular y ultra gran angular",
                                         "Sistema": "iOS"
-                                }
-                        },
-                        {
-                                "nombre": "iPhone 12 PRO 128GB",
-                                "precio": 1505900,
-                                "estado": "Usado",
-                                "grupo": "iPhone Usado",
-                                "specs": {
-                                        "Pantalla": "6.1\" Super Retina XDR OLED",
-                                        "Chip": "Apple A14 Bionic",
-                                        "Cámara": "Triple 12 MP con LiDAR",
-                                        "Sistema": "iOS · 5G"
                                 }
                         },
                         {
@@ -288,30 +240,6 @@
                                 }
                         },
                         {
-                                "nombre": "iPhone 12 PRO 256GB",
-                                "precio": 1611800,
-                                "estado": "Usado",
-                                "grupo": "iPhone Usado",
-                                "specs": {
-                                        "Pantalla": "6.1\" Super Retina XDR OLED",
-                                        "Chip": "Apple A14 Bionic",
-                                        "Cámara": "Triple 12 MP con LiDAR",
-                                        "Sistema": "iOS · 5G"
-                                }
-                        },
-                        {
-                                "nombre": "iPhone 12 PRO MAX 128GB",
-                                "precio": 1764700,
-                                "estado": "Usado",
-                                "grupo": "iPhone Usado",
-                                "specs": {
-                                        "Pantalla": "6.7\" Super Retina XDR OLED",
-                                        "Chip": "Apple A14 Bionic",
-                                        "Cámara": "Triple 12 MP con LiDAR",
-                                        "Sistema": "iOS · 5G"
-                                }
-                        },
-                        {
                                 "nombre": "iPhone 14 PLUS 128GB",
                                 "precio": 1776500,
                                 "estado": "Usado",
@@ -333,18 +261,6 @@
                                         "Chip": "Apple A15 Bionic",
                                         "Cámara": "Triple 12 MP · Ultra gran angular y teleobjetivo",
                                         "Sistema": "iOS"
-                                }
-                        },
-                        {
-                                "nombre": "iPhone 12 PRO MAX 256GB",
-                                "precio": 1858800,
-                                "estado": "Usado",
-                                "grupo": "iPhone Usado",
-                                "specs": {
-                                        "Pantalla": "6.7\" Super Retina XDR OLED",
-                                        "Chip": "Apple A14 Bionic",
-                                        "Cámara": "Triple 12 MP con LiDAR",
-                                        "Sistema": "iOS · 5G"
                                 }
                         },
                         {
@@ -2072,8 +1988,14 @@
         // se ve igual con 256 o 512 GB, nuevo o usado. Asi una sola foto sirve para
         // todas sus variantes y para todos los catalogos.
         function slugFoto(nombre) {
-            return slug(nombre.replace(/\s*\d+GB( RAM)?/gi, '')
-                              .replace(/\s*\b(Nuevo|Usado)\b/gi, '').trim());
+            // Quita almacenamiento, RAM y estado. El Excel los escribe de varias
+            // formas ("128GB 4GB RAM", "128GB/4RAM", "4GB/128GB", "256GB/12+12RAM"),
+            // y todas deben llegar al mismo nombre de archivo para compartir la foto.
+            return slug(nombre.replace(/\s*[\d+]+\s*(GB|TB)\b/gi, ' ')
+                              .replace(/\s*[\d+]+\s*RAM\b/gi, ' ')
+                              .replace(/[\/+]/g, ' ')
+                              .replace(/\s*\b(Nuevo|Usado)\b/gi, ' ')
+                              .trim());
         }
 
         // Carpeta unica de imagenes en la raiz del repositorio. Funciona igual desde

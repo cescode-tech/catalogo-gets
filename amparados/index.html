@@ -785,8 +785,14 @@
         // se ve igual con 256 o 512 GB, nuevo o usado. Asi una sola foto sirve para
         // todas sus variantes y para todos los catalogos.
         function slugFoto(nombre) {
-            return slug(nombre.replace(/\s*\d+GB( RAM)?/gi, '')
-                              .replace(/\s*\b(Nuevo|Usado)\b/gi, '').trim());
+            // Quita almacenamiento, RAM y estado. El Excel los escribe de varias
+            // formas ("128GB 4GB RAM", "128GB/4RAM", "4GB/128GB", "256GB/12+12RAM"),
+            // y todas deben llegar al mismo nombre de archivo para compartir la foto.
+            return slug(nombre.replace(/\s*[\d+]+\s*(GB|TB)\b/gi, ' ')
+                              .replace(/\s*[\d+]+\s*RAM\b/gi, ' ')
+                              .replace(/[\/+]/g, ' ')
+                              .replace(/\s*\b(Nuevo|Usado)\b/gi, ' ')
+                              .trim());
         }
 
         // Carpeta unica de imagenes en la raiz del repositorio. Funciona igual desde

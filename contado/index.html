@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Precios de Contado - GETS SOLUTIONS</title>
+    <title>Precios Contado - GETS SOLUTIONS</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -141,7 +141,7 @@
             <h1>💵 GETS · PRECIOS DE CONTADO</h1>
             <p class="subtitle" id="subtitulo">Catálogo de Financiamiento</p>
             <div class="stats">
-                <span id="productCount">Total: 146 productos</span>
+                <span id="productCount">Total: 139 productos</span>
             </div>
         </div>
 
@@ -204,42 +204,6 @@
                                 }
                         },
                         {
-                                "nombre": "iPhone 12 128GB",
-                                "precio": 980000,
-                                "estado": "Usado",
-                                "grupo": "iPhone Usado",
-                                "specs": {
-                                        "Pantalla": "6.1\" Super Retina XDR OLED",
-                                        "Chip": "Apple A14 Bionic",
-                                        "Cámara": "Doble 12 MP · gran angular y ultra gran angular",
-                                        "Sistema": "iOS · 5G"
-                                }
-                        },
-                        {
-                                "nombre": "iPhone 12 256GB",
-                                "precio": 1050000,
-                                "estado": "Usado",
-                                "grupo": "iPhone Usado",
-                                "specs": {
-                                        "Pantalla": "6.1\" Super Retina XDR OLED",
-                                        "Chip": "Apple A14 Bionic",
-                                        "Cámara": "Doble 12 MP · gran angular y ultra gran angular",
-                                        "Sistema": "iOS · 5G"
-                                }
-                        },
-                        {
-                                "nombre": "iPhone 11 PRO MAX 64GB",
-                                "precio": 1100000,
-                                "estado": "Usado",
-                                "grupo": "iPhone Usado",
-                                "specs": {
-                                        "Pantalla": "6.5\" Super Retina XDR OLED",
-                                        "Chip": "Apple A13 Bionic",
-                                        "Cámara": "Triple 12 MP · gran angular, ultra gran angular y teleobjetivo",
-                                        "Sistema": "iOS"
-                                }
-                        },
-                        {
                                 "nombre": "iPhone 13 128GB",
                                 "precio": 1200000,
                                 "estado": "Usado",
@@ -249,18 +213,6 @@
                                         "Chip": "Apple A15 Bionic",
                                         "Cámara": "Doble 12 MP · Gran angular y ultra gran angular",
                                         "Sistema": "iOS"
-                                }
-                        },
-                        {
-                                "nombre": "iPhone 12 PRO 128GB",
-                                "precio": 1280000,
-                                "estado": "Usado",
-                                "grupo": "iPhone Usado",
-                                "specs": {
-                                        "Pantalla": "6.1\" Super Retina XDR OLED",
-                                        "Chip": "Apple A14 Bionic",
-                                        "Cámara": "Triple 12 MP con LiDAR",
-                                        "Sistema": "iOS · 5G"
                                 }
                         },
                         {
@@ -288,30 +240,6 @@
                                 }
                         },
                         {
-                                "nombre": "iPhone 12 PRO 256GB",
-                                "precio": 1370000,
-                                "estado": "Usado",
-                                "grupo": "iPhone Usado",
-                                "specs": {
-                                        "Pantalla": "6.1\" Super Retina XDR OLED",
-                                        "Chip": "Apple A14 Bionic",
-                                        "Cámara": "Triple 12 MP con LiDAR",
-                                        "Sistema": "iOS · 5G"
-                                }
-                        },
-                        {
-                                "nombre": "iPhone 12 PRO MAX 128GB",
-                                "precio": 1500000,
-                                "estado": "Usado",
-                                "grupo": "iPhone Usado",
-                                "specs": {
-                                        "Pantalla": "6.7\" Super Retina XDR OLED",
-                                        "Chip": "Apple A14 Bionic",
-                                        "Cámara": "Triple 12 MP con LiDAR",
-                                        "Sistema": "iOS · 5G"
-                                }
-                        },
-                        {
                                 "nombre": "iPhone 14 PLUS 128GB",
                                 "precio": 1510000,
                                 "estado": "Usado",
@@ -333,18 +261,6 @@
                                         "Chip": "Apple A15 Bionic",
                                         "Cámara": "Triple 12 MP · Ultra gran angular y teleobjetivo",
                                         "Sistema": "iOS"
-                                }
-                        },
-                        {
-                                "nombre": "iPhone 12 PRO MAX 256GB",
-                                "precio": 1580000,
-                                "estado": "Usado",
-                                "grupo": "iPhone Usado",
-                                "specs": {
-                                        "Pantalla": "6.7\" Super Retina XDR OLED",
-                                        "Chip": "Apple A14 Bionic",
-                                        "Cámara": "Triple 12 MP con LiDAR",
-                                        "Sistema": "iOS · 5G"
                                 }
                         },
                         {
@@ -2072,8 +1988,14 @@
         // se ve igual con 256 o 512 GB, nuevo o usado. Asi una sola foto sirve para
         // todas sus variantes y para todos los catalogos.
         function slugFoto(nombre) {
-            return slug(nombre.replace(/\s*\d+GB( RAM)?/gi, '')
-                              .replace(/\s*\b(Nuevo|Usado)\b/gi, '').trim());
+            // Quita almacenamiento, RAM y estado. El Excel los escribe de varias
+            // formas ("128GB 4GB RAM", "128GB/4RAM", "4GB/128GB", "256GB/12+12RAM"),
+            // y todas deben llegar al mismo nombre de archivo para compartir la foto.
+            return slug(nombre.replace(/\s*[\d+]+\s*(GB|TB)\b/gi, ' ')
+                              .replace(/\s*[\d+]+\s*RAM\b/gi, ' ')
+                              .replace(/[\/+]/g, ' ')
+                              .replace(/\s*\b(Nuevo|Usado)\b/gi, ' ')
+                              .trim());
         }
 
         // Carpeta unica de imagenes en la raiz del repositorio. Funciona igual desde
@@ -2097,7 +2019,7 @@
             const p = visibles[idx];
             if (!p) return;
             const s = slugFoto(p.nombre);
-            const etiqueta = 'Precio de contado';
+            const etiqueta = 'Precio Contado';
 
             let specsHTML = '<div class="specs-pend">Características por confirmar</div>';
             if (p.specs && Object.keys(p.specs).length) {
@@ -2268,7 +2190,7 @@
                     card.innerHTML = `
                         <div class="product-name">${product.nombre}</div>
                         <div class="product-info">
-                            <div class="info-row"><span class="info-label">Precio de contado</span><span class="info-value">${formatCurrency(product.precio)}</span></div>
+                            <div class="info-row"><span class="info-label">Precio Contado</span><span class="info-value">${formatCurrency(product.precio)}</span></div>
                         </div>
                         ${chip}`;
                     grid.appendChild(card);
@@ -2292,7 +2214,7 @@
             document.getElementById('productsGrid').classList.add('hidden');
             tableDiv.classList.remove('hidden');
             visibles = []; let vi = 0;
-            let html = '<table><thead><tr><th>Producto</th><th>Estado</th><th>Precio de contado</th></tr></thead><tbody>';
+            let html = '<table><thead><tr><th>Producto</th><th>Estado</th><th>Precio Contado</th></tr></thead><tbody>';
             secciones(products).forEach(([cat, grupos]) => {
               if (cat) html += `<tr class="cat-row"><td colspan="3">${cat}</td></tr>`;
               grupos.forEach(([marca, items]) => {
@@ -2360,7 +2282,7 @@
                            'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
             const hoy = new Date();
             document.getElementById('subtitulo').textContent =
-                `Precios de Contado - ${meses[hoy.getMonth()]} ${hoy.getFullYear()}`;
+                `Precios Contado - ${meses[hoy.getMonth()]} ${hoy.getFullYear()}`;
         })();
 
         render();
