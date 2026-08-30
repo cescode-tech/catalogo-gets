@@ -382,9 +382,9 @@ const dataCatalogo = {
                                 "cuota": 90041,
                                 "quincenas": 16,
                                 "specs": {
-                                        "Pantalla": "6.9\" FHD+ · hasta 144 Hz",
-                                        "Procesador": "Snapdragon 6s Gen 3 5G",
-                                        "Batería": "7.000 mAh · carga 33W",
+                                        "Pantalla": "6.9\" HD+ · 120 Hz",
+                                        "Procesador": "MediaTek Helio G81 Ultra",
+                                        "Batería": "6.000 mAh · carga 33W",
                                         "Cámara": "50 MP principal · 8 MP frontal",
                                         "Sistema": "HyperOS (Android)"
                                 }
@@ -1008,6 +1008,20 @@ const dataCatalogo = {
                 .replace(/["']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
         }
 
+        // El nombre de la foto sale del equipo fisico, no del SKU: un iPhone 17 Pro Max
+        // se ve igual con 256 o 512 GB, nuevo o usado. Asi una sola foto sirve para
+        // todas sus variantes y para todos los catalogos.
+        function slugFoto(nombre) {
+            return slug(nombre.replace(/\s*\d+GB( RAM)?/gi, '')
+                              .replace(/\s*\b(Nuevo|Usado)\b/gi, '').trim());
+        }
+
+        // Carpeta unica de imagenes en la raiz del repositorio. Funciona igual desde
+        // la raiz o desde cualquier subcarpeta (/amparados/, /contado/, ...).
+        const IMG_BASE = location.pathname.split('/')[1]
+            ? '/' + location.pathname.split('/')[1] + '/img/'
+            : 'img/';
+
         let visibles = [];
         let fotoActual = 0;
         let fotosOk = [];
@@ -1022,7 +1036,7 @@ const dataCatalogo = {
         function abrirFicha(idx) {
             const p = visibles[idx];
             if (!p) return;
-            const s = slug(p.nombre);
+            const s = slugFoto(p.nombre);
             const etiqueta = p.tipo === 'sin_inicial' ? 'Monto máximo' : 'Cuota inicial';
 
             let specsHTML = '<div class="specs-pend">Características por confirmar</div>';
@@ -1061,7 +1075,7 @@ const dataCatalogo = {
                 let e = 0;
                 (function probar() {
                     if (e >= EXT.length) return slotListo();
-                    const ruta = `img/${s}-${n}.${EXT[e++]}`;
+                    const ruta = `${IMG_BASE}${s}-${n}.${EXT[e++]}`;
                     const test = new Image();
                     test.onload = () => { hallazgos[n] = ruta; slotListo(); };
                     test.onerror = probar;

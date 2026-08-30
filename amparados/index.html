@@ -740,6 +740,20 @@
                 .replace(/["']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
         }
 
+        // El nombre de la foto sale del equipo fisico, no del SKU: un iPhone 17 Pro Max
+        // se ve igual con 256 o 512 GB, nuevo o usado. Asi una sola foto sirve para
+        // todas sus variantes y para todos los catalogos.
+        function slugFoto(nombre) {
+            return slug(nombre.replace(/\s*\d+GB( RAM)?/gi, '')
+                              .replace(/\s*\b(Nuevo|Usado)\b/gi, '').trim());
+        }
+
+        // Carpeta unica de imagenes en la raiz del repositorio. Funciona igual desde
+        // la raiz o desde cualquier subcarpeta (/amparados/, /contado/, ...).
+        const IMG_BASE = location.pathname.split('/')[1]
+            ? '/' + location.pathname.split('/')[1] + '/img/'
+            : 'img/';
+
         let visibles = [];
         let fotoActual = 0;
         let fotosOk = [];
@@ -754,7 +768,7 @@
         function abrirFicha(idx) {
             const p = visibles[idx];
             if (!p) return;
-            const s = slug(p.nombre);
+            const s = slugFoto(p.nombre);
             const etiqueta = p.tipo === 'sin_inicial' ? 'Monto máximo' : 'Cuota inicial';
 
             let specsHTML = '<div class="specs-pend">Características por confirmar</div>';
@@ -793,7 +807,7 @@
                 let e = 0;
                 (function probar() {
                     if (e >= EXT.length) return slotListo();
-                    const ruta = `img/${s}-${n}.${EXT[e++]}`;
+                    const ruta = `${IMG_BASE}${s}-${n}.${EXT[e++]}`;
                     const test = new Image();
                     test.onload = () => { hallazgos[n] = ruta; slotListo(); };
                     test.onerror = probar;
