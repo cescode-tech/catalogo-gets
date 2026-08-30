@@ -139,7 +139,7 @@
     <div class="container">
         <div class="header">
             <h1>🛍️ GETS SOLUTIONS</h1>
-            <p class="subtitle">Catálogo de Financiamiento - Septiembre 2026</p>
+            <p class="subtitle" id="subtitulo">Catálogo de Financiamiento</p>
             <div class="stats">
                 <span id="productCount">Total: 62 productos</span>
             </div>
@@ -1280,6 +1280,14 @@ const dataCatalogo = {
             if (e.key === 'ArrowLeft') mostrarFoto(fotoActual - 1);
             if (e.key === 'ArrowRight') mostrarFoto(fotoActual + 1);
         });
+
+        (function fechaViva() {
+            const meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+                           'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+            const hoy = new Date();
+            document.getElementById('subtitulo').textContent =
+                `Catálogo de Financiamiento - ${meses[hoy.getMonth()]} ${hoy.getFullYear()}`;
+        })();
 
         render();
     </script>
