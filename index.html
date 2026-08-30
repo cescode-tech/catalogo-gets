@@ -85,6 +85,46 @@
         .table-view td { padding: 12px 15px; border-bottom: 1px solid #e0e0e0; }
         .table-view tr:hover { background: #f5f5f5; }
         .hidden { display: none !important; }
+        .modal-bg { position:fixed; inset:0; background:rgba(30,15,55,0.75); display:none; align-items:center; justify-content:center; padding:20px; z-index:100; }
+        .modal-bg.open { display:flex; }
+        .modal { background:#fff; border-radius:16px; max-width:620px; width:100%; max-height:90vh; overflow-y:auto; padding:26px; position:relative; }
+        .modal-close { position:absolute; top:14px; right:16px; background:none; border:none; font-size:1.7rem; color:#8a7aa8; cursor:pointer; line-height:1; padding:0 6px; }
+        .modal-close:hover { color:#5c388e; }
+        .modal h2 { color:#5c388e; font-size:1.35rem; margin-bottom:4px; padding-right:36px; }
+        .modal-cat { color:#8a7aa8; font-size:0.88rem; font-weight:600; margin-bottom:18px; }
+        .carousel { position:relative; background:#f4f1f9; border-radius:12px; overflow:hidden; margin-bottom:8px; }
+        .carousel img { width:100%; height:300px; object-fit:contain; display:block; background:#f4f1f9; }
+        .car-btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(92,56,142,0.85); color:#fff; border:none; width:36px; height:36px; border-radius:50%; font-size:1.2rem; cursor:pointer; }
+        .car-btn:hover { background:#5c388e; }
+        .car-prev { left:10px; } .car-next { right:10px; }
+        .car-dots { display:flex; justify-content:center; gap:7px; margin-bottom:18px; }
+        .car-dot { width:8px; height:8px; border-radius:50%; background:#d6cce6; cursor:pointer; }
+        .car-dot.on { background:#5c388e; }
+        .no-photo { background:#f4f1f9; border:2px dashed #d6cce6; border-radius:12px; height:190px; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#8a7aa8; font-size:0.9rem; gap:6px; margin-bottom:18px; }
+        .no-photo span:first-child { font-size:2rem; }
+        .modal-money { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:18px; }
+        .money-card { background:#f4f1f9; border-radius:10px; padding:13px 15px; }
+        .money-card .lbl { font-size:0.78rem; color:#8a7aa8; font-weight:600; text-transform:uppercase; letter-spacing:0.4px; }
+        .money-card .val { font-size:1.22rem; color:#5c388e; font-weight:800; margin-top:3px; }
+        .specs-title { font-size:0.95rem; font-weight:700; color:#5c388e; margin-bottom:9px; }
+        .specs { width:100%; border-collapse:collapse; font-size:0.9rem; }
+        .specs td { padding:8px 0; border-bottom:1px solid #eee; }
+        .specs td:first-child { color:#777; width:42%; }
+        .specs td:last-child { color:#333; font-weight:600; }
+        .specs-pend { background:#fff8e6; border-left:4px solid #f0b429; padding:11px 14px; border-radius:6px; font-size:0.87rem; color:#7a5a00; }
+        .product-card, .table-view tbody tr:not(.brand-row):not(.cat-row) { cursor:pointer; }
+        .ben-box { background:#eaf7ee; border:2px solid #43e97b; border-radius:12px; padding:18px 20px; margin-bottom:22px; }
+        .ben-title { display:flex; align-items:center; gap:8px; font-size:1.05rem; font-weight:700; color:#1d6b3a; margin-bottom:12px; }
+        .ben-chips { display:flex; flex-wrap:wrap; gap:8px; }
+        .ben-chip { background:#c8f0d6; color:#12522b; font-size:0.88rem; font-weight:600; padding:7px 13px; border-radius:8px; }
+        .ben-title-2 { margin-top:16px; padding-top:14px; border-top:1px solid #b8e6c6; }
+        .ben-chip-2 { background:#e3d9f2; color:#3d2461; }
+        .ben-cat { font-size:0.85rem; font-weight:700; color:#1d6b3a; margin:10px 0 6px; }
+        .cat-row td { background:#5c388e; color:#fff; font-weight:700; font-size:1.02rem; padding:12px 15px; letter-spacing:0.3px; }
+        .cat-head { font-size:1.15rem; font-weight:800; color:#fff; background:rgba(0,0,0,0.18); padding:11px 18px; border-radius:10px; margin:30px 0 6px; grid-column:1/-1; }
+        .brand-row td { background:#ede8f5; font-weight:700; color:#5c388e; padding:10px 15px; letter-spacing:0.3px; }
+        .brand-count { color:#8a7aa8; font-weight:500; }
+        .brand-head { font-size:1rem; font-weight:700; color:#fff; background:rgba(255,255,255,0.18); padding:8px 16px; border-radius:8px; margin:26px 0 14px; grid-column:1/-1; }
         .empty-state { text-align: center; padding: 40px; color: rgba(255,255,255,0.8); font-size: 1.1rem; }
         .stats { text-align: center; color: rgba(255,255,255,0.9); margin-top: 20px; font-size: 0.95rem; }
         @media (max-width: 768px) {
@@ -101,7 +141,7 @@
             <h1>🛍️ GETS SOLUTIONS</h1>
             <p class="subtitle">Catálogo de Financiamiento - Septiembre 2026</p>
             <div class="stats">
-                <span id="productCount">Total: 102 productos</span>
+                <span id="productCount">Total: 62 productos</span>
             </div>
         </div>
 
@@ -114,667 +154,974 @@
 
         <div class="category-tabs">
             <button class="tab-btn active" data-category="all">Todas</button>
-            <button class="tab-btn" data-category="Amparados iPhone">Amparados iPhone</button>
             <button class="tab-btn" data-category="iPhone con Cuota Inicial">iPhone Inicial</button>
             <button class="tab-btn" data-category="Androide con Cuota Inicial">Androide Inicial</button>
             <button class="tab-btn" data-category="Televisores con Cuota Inicial">Televisores</button>
         </div>
 
         <div class="toggle-view">
-            <button class="view-btn active" id="gridViewBtn">📱 Tarjetas</button>
-            <button class="view-btn" id="tableViewBtn">📊 Tabla</button>
+            <button class="view-btn" id="gridViewBtn">📱 Tarjetas</button>
+            <button class="view-btn active" id="tableViewBtn">📊 Tabla</button>
         </div>
 
+        <div id="benefitsBox"></div>
         <div id="productsGrid" class="products-grid"></div>
         <div id="productsTable" class="table-view hidden"></div>
         <div id="emptyState" class="empty-state hidden">No hay productos que coincidan con la búsqueda.</div>
     </div>
 
+    <div class="modal-bg" id="modalBg"><div class="modal" id="modalBox"></div></div>
+
     <script>
 const dataCatalogo = {
-        "Amparados iPhone": {
-                "quincenas": 12,
-                "tipo": "sin_inicial",
-                "beneficios": [],
-                "productos": [
-                        {
-                                "nombre": "iphone 13 128 gb usado",
-                                "monto": 600000,
-                                "cuota": 98919,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 13 256 gb usado",
-                                "monto": 650000,
-                                "cuota": 105357,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 13 pro 128 gb usado",
-                                "monto": 750000,
-                                "cuota": 118232,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 13 pro 256 gb usado",
-                                "monto": 800000,
-                                "cuota": 124670,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 13 pro 512 gb usado",
-                                "monto": 850000,
-                                "cuota": 131108,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 13 pro max 128 gb usado",
-                                "monto": 900000,
-                                "cuota": 137546,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 13 pro max 256 gb usado",
-                                "monto": 975000,
-                                "cuota": 147202,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 14 de 128 gb usado",
-                                "monto": 700000,
-                                "cuota": 111795,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 14 plus 128 gb usado",
-                                "monto": 700000,
-                                "cuota": 111795,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 14 pro 128 gb usado",
-                                "monto": 875000,
-                                "cuota": 134327,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 14 pro 256 gb usado",
-                                "monto": 1000000,
-                                "cuota": 150421,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 14 pro max 128 gb usado",
-                                "monto": 1000000,
-                                "cuota": 150421,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 14 pro max 256 gb usado",
-                                "monto": 1100000,
-                                "cuota": 163296,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 15 128 gb usado",
-                                "monto": 900000,
-                                "cuota": 137546,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 15 plus 128 gb usado",
-                                "monto": 1000000,
-                                "cuota": 150421,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 15 pro 128 gb usado",
-                                "monto": 1075000,
-                                "cuota": 160078,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 15 pro 256 gb usado",
-                                "monto": 1100000,
-                                "cuota": 163296,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 15 pro 512 gb usado",
-                                "monto": 1175000,
-                                "cuota": 172953,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 15 pro max 256 gb usado",
-                                "monto": 1200000,
-                                "cuota": 176172,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 15 pro max 512 gb usado",
-                                "monto": 1300000,
-                                "cuota": 189047,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 16 128 gb usado",
-                                "monto": 1100000,
-                                "cuota": 163296,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 16 plus 128 gb usado",
-                                "monto": 1200000,
-                                "cuota": 176172,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 16 pro 128 gb usado",
-                                "monto": 1365000,
-                                "cuota": 197416,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 16 pro 256 gb usado",
-                                "monto": 1450000,
-                                "cuota": 208360,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 16 pro max 256 gb usado",
-                                "monto": 1625000,
-                                "cuota": 230892,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 17 256gb usado",
-                                "monto": 1350000,
-                                "cuota": 195485,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 17 pro 256gb",
-                                "monto": 1700000,
-                                "cuota": 240549,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 17 pro 512 gb",
-                                "monto": 1800000,
-                                "cuota": 253424,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 17 pro max 256gb",
-                                "monto": 1800000,
-                                "cuota": 253424,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 17 pro max 512 gb",
-                                "monto": 2100000,
-                                "cuota": 292051,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "ipad a16 128 gb nuevo",
-                                "monto": 750000,
-                                "cuota": 118232,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 13 128 gb nuevo",
-                                "monto": 850000,
-                                "cuota": 131108,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 14 128 gb nuevo",
-                                "monto": 900000,
-                                "cuota": 137546,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 15 128 gb nuevo",
-                                "monto": 1100000,
-                                "cuota": 163296,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 16 128 gb nuevo",
-                                "monto": 1200000,
-                                "cuota": 176172,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 16 pro max 256gb nuevo",
-                                "monto": 1725000,
-                                "cuota": 243768,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 17 256 gb nuevo",
-                                "monto": 1500000,
-                                "cuota": 214798,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 17 pro 256 gb nuevo",
-                                "monto": 1800000,
-                                "cuota": 253424,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 17 pro 512 gb nuevo",
-                                "monto": 2200000,
-                                "cuota": 304926,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 17 pro max 256 gb nuevo",
-                                "monto": 2000000,
-                                "cuota": 279175,
-                                "quincenas": 12
-                        },
-                        {
-                                "nombre": "iphone 17 pro max 512 gb nuevo",
-                                "monto": 2300000,
-                                "cuota": 317801,
-                                "quincenas": 12
-                        }
-                ]
-        },
         "Androide con Cuota Inicial": {
                 "quincenas": 16,
                 "tipo": "con_inicial",
-                "beneficios": [],
+                "beneficios": [
+                        "Paga puntual las primeras 8 quincenas y las otras 8 van al 50%"
+                ],
                 "productos": [
                         {
                                 "nombre": "honor x5d 128 gb 4 ram",
                                 "inicial": 100000,
                                 "cuota": 84415,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.74\" HD+ · 90 Hz",
+                                        "Procesador": "MediaTek Helio G81",
+                                        "Batería": "5.260 mAh",
+                                        "Cámara": "13 MP principal",
+                                        "Sistema": "MagicOS 9.0 (Android 15)"
+                                }
                         },
                         {
                                 "nombre": "honor x5d 256 gb 4 ram",
                                 "inicial": 150000,
                                 "cuota": 90041,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.74\" HD+ · 90 Hz",
+                                        "Procesador": "MediaTek Helio G81",
+                                        "Batería": "5.260 mAh",
+                                        "Cámara": "13 MP principal",
+                                        "Sistema": "MagicOS 9.0 (Android 15)"
+                                }
                         },
                         {
                                 "nombre": "honor x6c 128gb 6ram",
                                 "inicial": 150000,
                                 "cuota": 84415,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.61\" TFT HD+ · 120 Hz · 1010 nits",
+                                        "Procesador": "MediaTek Helio G81 Ultra",
+                                        "Batería": "5.200 mAh · carga 35W",
+                                        "Cámara": "50 MP principal · 5 MP frontal",
+                                        "Sistema": "MagicOS (Android)"
+                                }
                         },
                         {
                                 "nombre": "Honor Play 10 64 gb 4 ram",
                                 "inicial": 80000,
                                 "cuota": 72706,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.74\" HD+",
+                                        "Procesador": "MediaTek Helio G81 octa-core",
+                                        "Batería": "5.000 mAh",
+                                        "Cámara": "13 MP principal",
+                                        "Sistema": "MagicOS (Android)"
+                                }
                         },
                         {
                                 "nombre": "infinix note edge 256 gb 8 ram",
                                 "inicial": 450000,
                                 "cuota": 90041,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.78\" AMOLED FHD+ · 120 Hz · 4.500 nits",
+                                        "Procesador": "MediaTek Dimensity 7100 5G",
+                                        "Batería": "6.500 mAh · carga 45W",
+                                        "Cámara": "50 MP principal · 13 MP frontal",
+                                        "Sistema": "XOS (Android)"
+                                }
                         },
                         {
                                 "nombre": "infinix hot 70 8ram 256gb",
                                 "inicial": 250000,
                                 "cuota": 90041,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.78\" IPS HD+ · 120 Hz",
+                                        "Procesador": "MediaTek Helio G100 Ultimate",
+                                        "Batería": "6.000 mAh · carga 45W",
+                                        "Cámara": "50 MP principal · 8 MP frontal",
+                                        "Sistema": "Android 16"
+                                }
                         },
                         {
                                 "nombre": "infinix smart 10 128 gb 4 ram",
                                 "inicial": 100000,
                                 "cuota": 84415,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.67\" HD+ · 120 Hz",
+                                        "Procesador": "Unisoc T7250 octa-core",
+                                        "Batería": "5.000 mAh · carga 15W",
+                                        "Cámara": "8 MP principal · 8 MP frontal",
+                                        "Sistema": "XOS 15.1 (Android 15)"
+                                }
                         },
                         {
                                 "nombre": "infinix smart 20 128 gb 4 ram",
                                 "inicial": 130000,
                                 "cuota": 84415,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.78\" IPS HD+ · 120 Hz · 700 nits",
+                                        "Procesador": "MediaTek Helio G81 Ultimate",
+                                        "Batería": "5.200 mAh · carga 15W",
+                                        "Cámara": "8 MP principal · 8 MP frontal",
+                                        "Sistema": "XOS 16 (Android 16)"
+                                }
                         },
                         {
                                 "nombre": "infinix smart 20 64 gb 4 ram",
                                 "inicial": 100000,
                                 "cuota": 72706,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.78\" IPS HD+ · 120 Hz · 700 nits",
+                                        "Procesador": "MediaTek Helio G81 Ultimate",
+                                        "Batería": "5.200 mAh · carga 15W",
+                                        "Cámara": "8 MP principal · 8 MP frontal",
+                                        "Sistema": "XOS 16 (Android 16)"
+                                }
                         },
                         {
                                 "nombre": "infinix xpad 20 128gb 3ram",
                                 "inicial": 200000,
                                 "cuota": 90041,
-                                "quincenas": 16
-                        },
-                        {
-                                "nombre": "kalley black e 64gb 4ram",
-                                "inicial": 50000,
-                                "cuota": 50660,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "11\" IPS Full HD+ · 90 Hz",
+                                        "Procesador": "MediaTek Helio G88",
+                                        "Batería": "7.000 mAh · carga 10W",
+                                        "Conectividad": "4G · WiFi 5 · Bluetooth 5.2",
+                                        "Sistema": "Android 15"
+                                }
                         },
                         {
                                 "nombre": "moto g06 128gb 4ram",
                                 "inicial": 130000,
                                 "cuota": 84415,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.88\" IPS HD+ · 120 Hz · 600 nits",
+                                        "Procesador": "MediaTek Helio G81",
+                                        "Batería": "5.200 mAh · carga 10W",
+                                        "Cámara": "50 MP principal · 8 MP frontal",
+                                        "Sistema": "Android 15"
+                                }
                         },
                         {
                                 "nombre": "moto g17 power 4ram 256gb",
                                 "inicial": 300000,
                                 "cuota": 90041,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.72\" IPS FHD+ · 1.050 nits",
+                                        "Procesador": "MediaTek Helio G81 Extreme",
+                                        "Batería": "6.000 mAh · TurboPower 30W",
+                                        "Cámara": "50 MP Sony + 5 MP UW · 32 MP frontal",
+                                        "Sistema": "Android 15"
+                                }
                         },
                         {
                                 "nombre": "oppo a5x 128gb 4ram",
                                 "inicial": 200000,
                                 "cuota": 90041,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.67\" LCD HD+ · 90 Hz · 1.000 nits",
+                                        "Procesador": "Snapdragon 6s 4G Gen 1",
+                                        "Batería": "6.000 mAh · SUPERVOOC 45W",
+                                        "Cámara": "32 MP principal · 5 MP frontal",
+                                        "Sistema": "ColorOS · IP65"
+                                }
                         },
                         {
                                 "nombre": "redmi 15c 4ram 128gb",
                                 "inicial": 150000,
                                 "cuota": 90041,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.9\" HD+ · 120 Hz",
+                                        "Procesador": "MediaTek Helio G81 Ultra",
+                                        "Batería": "6.000 mAh · carga 33W",
+                                        "Cámara": "50 MP principal · 8 MP frontal",
+                                        "Sistema": "HyperOS (Android)"
+                                }
                         },
                         {
                                 "nombre": "redmi 15c 4ram 256gb",
                                 "inicial": 200000,
                                 "cuota": 90041,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.9\" HD+ · 120 Hz",
+                                        "Procesador": "MediaTek Helio G81 Ultra",
+                                        "Batería": "6.000 mAh · carga 33W",
+                                        "Cámara": "50 MP principal · 8 MP frontal",
+                                        "Sistema": "HyperOS (Android)"
+                                }
                         },
                         {
                                 "nombre": "xiaomi redmi 15 6ram 128gb",
                                 "inicial": 250000,
                                 "cuota": 90041,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.9\" FHD+ · hasta 144 Hz",
+                                        "Procesador": "Snapdragon 6s Gen 3 5G",
+                                        "Batería": "7.000 mAh · carga 33W",
+                                        "Cámara": "50 MP principal · 8 MP frontal",
+                                        "Sistema": "HyperOS (Android)"
+                                }
+                        },
+                        {
+                                "nombre": "xiaomi redmi 17 6ram 128gb",
+                                "inicial": 250000,
+                                "cuota": 90041,
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.9\" · 120 Hz · 800 nits",
+                                        "Procesador": "MediaTek Helio G91 Ultra",
+                                        "Batería": "7.500 mAh · carga 45W",
+                                        "Cámara": "50 MP principal · 8 MP frontal",
+                                        "Sistema": "HyperOS 3 (Android 16)"
+                                }
                         },
                         {
                                 "nombre": "xiaomi redmi note 15 6ram 128gb",
                                 "inicial": 300000,
                                 "cuota": 90041,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.77\" AMOLED FHD+ · 120 Hz · 3.200 nits",
+                                        "Procesador": "MediaTek Helio G100",
+                                        "Batería": "6.000 mAh · carga 33W",
+                                        "Cámara": "108 MP con OIS · 20 MP frontal",
+                                        "Sistema": "HyperOS (Android)"
+                                }
                         },
                         {
                                 "nombre": "xioami redmi a7 64gb",
                                 "inicial": 80000,
                                 "cuota": 72706,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.88\" LCD HD+ · 120 Hz",
+                                        "Procesador": "Unisoc T7250 octa-core",
+                                        "Batería": "5.200 mAh · carga 15W",
+                                        "Cámara": "13 MP dual IA · 8 MP frontal",
+                                        "Sistema": "HyperOS (Android)"
+                                }
                         },
                         {
                                 "nombre": "xioami redmi a7 pro 64gb",
                                 "inicial": 100000,
                                 "cuota": 72706,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.88\" LCD HD+ · 120 Hz",
+                                        "Procesador": "Unisoc T7250 octa-core",
+                                        "Batería": "5.200 mAh · carga 15W",
+                                        "Cámara": "13 MP dual IA · 8 MP frontal",
+                                        "Sistema": "HyperOS (Android)"
+                                }
                         },
                         {
                                 "nombre": "samsung a07 64gb 4ram",
                                 "inicial": 100000,
                                 "cuota": 72706,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.7\" HD+ · 90 Hz",
+                                        "Procesador": "MediaTek Helio G85",
+                                        "Batería": "5.000 mAh · carga 25W",
+                                        "Cámara": "50 MP principal · 8 MP frontal",
+                                        "Sistema": "One UI 7 (Android 15)"
+                                }
                         },
                         {
                                 "nombre": "samsung a17 128 6 ram",
                                 "inicial": 200000,
                                 "cuota": 90041,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.7\" Super AMOLED FHD+ · 90 Hz · Gorilla Glass Victus+",
+                                        "Procesador": "MediaTek Helio G99 (6 nm)",
+                                        "Batería": "5.000 mAh · carga 25W",
+                                        "Cámara": "50 MP + 5 MP UW + 2 MP macro · 13 MP frontal",
+                                        "Sistema": "One UI 7 (Android 15) · IP54"
+                                }
                         },
                         {
                                 "nombre": "tecno go 3 128gb 4ram",
                                 "inicial": 130000,
                                 "cuota": 84415,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.75\" IPS HD+ · 120 Hz",
+                                        "Procesador": "Unisoc T7250",
+                                        "Batería": "5.000 mAh · carga 15W",
+                                        "Cámara": "13 MP principal · 8 MP frontal",
+                                        "Sistema": "Android 15 · IP64"
+                                }
                         },
                         {
                                 "nombre": "tecno go 3 64gb 4ram",
                                 "inicial": 100000,
                                 "cuota": 72706,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.75\" IPS HD+ · 120 Hz",
+                                        "Procesador": "Unisoc T7250",
+                                        "Batería": "5.000 mAh · carga 15W",
+                                        "Cámara": "13 MP principal · 8 MP frontal",
+                                        "Sistema": "Android 15 · IP64"
+                                }
                         },
                         {
                                 "nombre": "tecno spark 50 4ram 256gb",
                                 "inicial": 300000,
                                 "cuota": 90041,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.78\" · 120 Hz",
+                                        "Procesador": "MediaTek Helio G81",
+                                        "Batería": "7.000 mAh",
+                                        "Cámara": "50 MP principal · 8 MP frontal",
+                                        "Sistema": "HiOS (Android)"
+                                }
                         },
                         {
                                 "nombre": "vivo y04 4ram 128gb",
                                 "inicial": 200000,
                                 "cuota": 90041,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.74\" IPS HD+ · 90 Hz",
+                                        "Procesador": "Unisoc T7225",
+                                        "Batería": "5.500 mAh · carga 15W",
+                                        "Cámara": "13 MP principal · 5 MP frontal",
+                                        "Sistema": "Funtouch OS 14 · IP64"
+                                }
                         },
                         {
                                 "nombre": "vivo y05 4ram 128gb",
                                 "inicial": 200000,
                                 "cuota": 90041,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.74\" IPS HD+ · 120 Hz · 1.200 nits",
+                                        "Procesador": "Unisoc T7225 octa-core",
+                                        "Batería": "6.500 mAh · carga 15W",
+                                        "Cámara": "8 MP principal · 5 MP frontal",
+                                        "Sistema": "OriginOS 6 (Android 16) · IP65"
+                                }
                         },
                         {
                                 "nombre": "zte a56 4ram 128gb",
                                 "inicial": 80000,
                                 "cuota": 72706,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.75\" IPS HD+ · 90 Hz",
+                                        "Procesador": "Unisoc T7200 octa-core",
+                                        "Batería": "5.000 mAh · carga 10W",
+                                        "Cámara": "13 MP principal · 8 MP frontal",
+                                        "Sistema": "Android 15"
+                                }
                         },
                         {
                                 "nombre": "zte a56 pro 4ram 128gb",
                                 "inicial": 80000,
                                 "cuota": 72706,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.75\" IPS HD+ · 90 Hz",
+                                        "Procesador": "Unisoc T7200 octa-core",
+                                        "Batería": "5.000 mAh · carga 10W",
+                                        "Cámara": "13 MP principal · 8 MP frontal",
+                                        "Sistema": "Android 15"
+                                }
                         },
                         {
                                 "nombre": "zte blade a35e 64gb",
                                 "inicial": 50000,
                                 "cuota": 50660,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.52\" LCD HD+",
+                                        "Procesador": "Unisoc SC9863A1 octa-core",
+                                        "Batería": "5.000 mAh · carga 10W",
+                                        "Cámara": "8 MP principal · 5 MP frontal",
+                                        "Sistema": "Android 14 Go"
+                                }
+                        },
+                        {
+                                "nombre": "moto g05 128gb 4ram",
+                                "inicial": 100000,
+                                "cuota": 84415,
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "6.67\" IPS HD+ · 90 Hz · Gorilla Glass 3",
+                                        "Procesador": "MediaTek Helio G81 Extreme",
+                                        "Batería": "5.200 mAh · carga 18W",
+                                        "Cámara": "50 MP principal · 8 MP frontal",
+                                        "Sistema": "Android 15"
+                                }
                         }
                 ]
         },
         "Televisores con Cuota Inicial": {
                 "quincenas": 16,
                 "tipo": "con_inicial",
-                "beneficios": [],
+                "beneficios": [
+                        "Paga puntual las primeras 8 quincenas y las otras 8 van al 50%"
+                ],
                 "productos": [
                         {
                                 "nombre": "smart tv kalley 40\"",
                                 "inicial": 350000,
                                 "cuota": 116350,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "40\" (100 cm) LED",
+                                        "Resolución": "Full HD",
+                                        "Sistema": "Google TV",
+                                        "Conectividad": "WiFi · Bluetooth · HDMI · USB · TDT"
+                                }
                         },
                         {
                                 "nombre": "smart tv kalley 43\"",
                                 "inicial": 450000,
                                 "cuota": 127494,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "43\" (109 cm)",
+                                        "Resolución": "Full HD",
+                                        "Sistema": "Google TV",
+                                        "Conectividad": "WiFi · Bluetooth · HDMI · USB · TDT"
+                                }
                         },
                         {
                                 "nombre": "tcl 50 pulgadas google tv",
                                 "inicial": 600000,
                                 "cuota": 127494,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "50\" (127 cm)",
+                                        "Resolución": "4K UHD (3840 × 2160)",
+                                        "Sistema": "Google TV",
+                                        "Conectividad": "WiFi · Bluetooth · HDMI · USB"
+                                }
                         },
                         {
                                 "nombre": "tcl 55 pulgadas google tv",
                                 "inicial": 750000,
                                 "cuota": 127494,
-                                "quincenas": 16
+                                "quincenas": 16,
+                                "specs": {
+                                        "Pantalla": "55\" (139 cm)",
+                                        "Resolución": "4K UHD (3840 × 2160)",
+                                        "Sistema": "Google TV",
+                                        "Conectividad": "WiFi · Bluetooth · HDMI · USB"
+                                }
                         }
                 ]
         },
         "iPhone con Cuota Inicial": {
                 "quincenas": 12,
                 "tipo": "con_inicial",
-                "beneficios": [],
+                "beneficios": [
+                        "Paga puntual las primeras 8 quincenas y las otras 4 van al 50%"
+                ],
                 "productos": [
                         {
                                 "nombre": "ipad a16 128 gb nuevo",
                                 "inicial": 700000,
                                 "cuota": 160007,
-                                "quincenas": 12
+                                "quincenas": 12,
+                                "specs": {
+                                        "Pantalla": "11\" Liquid Retina",
+                                        "Chip": "Apple A16",
+                                        "Cámara": "12 MP trasera · 12 MP frontal Center Stage",
+                                        "Sistema": "iPadOS"
+                                }
                         },
                         {
                                 "nombre": "iphone 13 de 128gb nuevo",
                                 "inicial": 1000000,
                                 "cuota": 160007,
-                                "quincenas": 12
+                                "quincenas": 12,
+                                "specs": {
+                                        "Pantalla": "6.1\" Super Retina XDR OLED",
+                                        "Chip": "Apple A15 Bionic",
+                                        "Cámara": "Doble 12 MP · Gran angular y ultra gran angular",
+                                        "Sistema": "iOS"
+                                }
                         },
                         {
                                 "nombre": "iphone 14 128 gb nuevo",
                                 "inicial": 1200000,
                                 "cuota": 179362,
-                                "quincenas": 12
+                                "quincenas": 12,
+                                "specs": {
+                                        "Pantalla": "6.1\" Super Retina XDR OLED",
+                                        "Chip": "Apple A15 Bionic",
+                                        "Cámara": "Doble 12 MP",
+                                        "Sistema": "iOS"
+                                }
                         },
                         {
                                 "nombre": "iphone 15 128 gb nuevo",
                                 "inicial": 1400000,
                                 "cuota": 200008,
-                                "quincenas": 12
+                                "quincenas": 12,
+                                "specs": {
+                                        "Pantalla": "6.1\" Super Retina XDR · Dynamic Island",
+                                        "Chip": "Apple A16 Bionic",
+                                        "Cámara": "48 MP principal · ultra gran angular",
+                                        "Sistema": "iOS"
+                                }
                         },
                         {
                                 "nombre": "iphone 16 128 gb nuevo",
                                 "inicial": 1600000,
                                 "cuota": 228045,
-                                "quincenas": 12
+                                "quincenas": 12,
+                                "specs": {
+                                        "Pantalla": "6.1\" Super Retina XDR OLED · Control de cámara",
+                                        "Chip": "Apple A18",
+                                        "Cámara": "48 MP Fusion · ultra gran angular",
+                                        "Sistema": "iOS"
+                                }
                         },
                         {
                                 "nombre": "iphone 17 256 gb nuevo",
                                 "inicial": 1900000,
                                 "cuota": 240009,
-                                "quincenas": 12
+                                "quincenas": 12,
+                                "specs": {
+                                        "Pantalla": "6.3\" Super Retina XDR · ProMotion 120 Hz",
+                                        "Chip": "Apple A19",
+                                        "Cámara": "48 MP Fusion · 18 MP frontal Center Stage",
+                                        "Sistema": "iOS"
+                                }
                         },
                         {
                                 "nombre": "iphone 17 pro 256 gb nuevo",
                                 "inicial": 2500000,
                                 "cuota": 306317,
-                                "quincenas": 12
+                                "quincenas": 12,
+                                "specs": {
+                                        "Pantalla": "6.3\" Super Retina XDR · ProMotion 120 Hz · 3.000 nits",
+                                        "Chip": "Apple A19 Pro",
+                                        "Cámara": "Triple 48 MP Fusion · zoom óptico 8x · 18 MP frontal",
+                                        "Sistema": "iOS"
+                                }
                         },
                         {
                                 "nombre": "iphone 17 pro max 256gb nuevo",
                                 "inicial": 2800000,
                                 "cuota": 306317,
-                                "quincenas": 12
+                                "quincenas": 12,
+                                "specs": {
+                                        "Pantalla": "6.9\" Super Retina XDR · ProMotion 120 Hz · 3.000 nits",
+                                        "Chip": "Apple A19 Pro",
+                                        "Batería": "5.088 mAh · hasta 39 h de video",
+                                        "Cámara": "Triple 48 MP Fusion · zoom óptico 8x · 18 MP frontal",
+                                        "Sistema": "iOS"
+                                }
                         },
                         {
                                 "nombre": "iphone 13 128gb usado",
                                 "inicial": 500000,
                                 "cuota": 160007,
-                                "quincenas": 12
+                                "quincenas": 12,
+                                "specs": {
+                                        "Pantalla": "6.1\" Super Retina XDR OLED",
+                                        "Chip": "Apple A15 Bionic",
+                                        "Cámara": "Doble 12 MP · Gran angular y ultra gran angular",
+                                        "Sistema": "iOS"
+                                }
                         },
                         {
                                 "nombre": "iphone 13 pro 128 gb usado",
                                 "inicial": 900000,
                                 "cuota": 160007,
-                                "quincenas": 12
+                                "quincenas": 12,
+                                "specs": {
+                                        "Pantalla": "6.1\" Super Retina XDR · ProMotion 120 Hz",
+                                        "Chip": "Apple A15 Bionic",
+                                        "Cámara": "Triple 12 MP · Ultra gran angular y teleobjetivo",
+                                        "Sistema": "iOS"
+                                }
                         },
                         {
                                 "nombre": "iphone 13 pro 256 gb usado",
                                 "inicial": 1000000,
                                 "cuota": 160007,
-                                "quincenas": 12
+                                "quincenas": 12,
+                                "specs": {
+                                        "Pantalla": "6.1\" Super Retina XDR · ProMotion 120 Hz",
+                                        "Chip": "Apple A15 Bionic",
+                                        "Cámara": "Triple 12 MP · Ultra gran angular y teleobjetivo",
+                                        "Sistema": "iOS"
+                                }
                         },
                         {
                                 "nombre": "iphone 13 pro max 128gb usado",
                                 "inicial": 1100000,
                                 "cuota": 160007,
-                                "quincenas": 12
+                                "quincenas": 12,
+                                "specs": {
+                                        "Pantalla": "6.7\" Super Retina XDR · ProMotion 120 Hz",
+                                        "Chip": "Apple A15 Bionic",
+                                        "Cámara": "Triple 12 MP · Ultra gran angular y teleobjetivo",
+                                        "Sistema": "iOS"
+                                }
                         },
                         {
                                 "nombre": "iphone 13 pro max 256gb usado",
                                 "inicial": 1200000,
                                 "cuota": 179362,
-                                "quincenas": 12
+                                "quincenas": 12,
+                                "specs": {
+                                        "Pantalla": "6.7\" Super Retina XDR · ProMotion 120 Hz",
+                                        "Chip": "Apple A15 Bionic",
+                                        "Cámara": "Triple 12 MP · Ultra gran angular y teleobjetivo",
+                                        "Sistema": "iOS"
+                                }
                         },
                         {
                                 "nombre": "iphone 14 128gb usado",
                                 "inicial": 800000,
                                 "cuota": 160007,
-                                "quincenas": 12
+                                "quincenas": 12,
+                                "specs": {
+                                        "Pantalla": "6.1\" Super Retina XDR OLED",
+                                        "Chip": "Apple A15 Bionic",
+                                        "Cámara": "Doble 12 MP",
+                                        "Sistema": "iOS"
+                                }
                         },
                         {
                                 "nombre": "iphone 14 pro 128gb usado",
                                 "inicial": 1000000,
                                 "cuota": 179362,
-                                "quincenas": 12
+                                "quincenas": 12,
+                                "specs": {
+                                        "Pantalla": "6.1\" Super Retina XDR · ProMotion · Dynamic Island",
+                                        "Chip": "Apple A16 Bionic",
+                                        "Cámara": "48 MP principal + ultra gran angular + teleobjetivo",
+                                        "Sistema": "iOS"
+                                }
                         },
                         {
                                 "nombre": "iphone 14 pro 256 gb usado",
                                 "inicial": 1200000,
                                 "cuota": 179362,
-                                "quincenas": 12
+                                "quincenas": 12,
+                                "specs": {
+                                        "Pantalla": "6.1\" Super Retina XDR · ProMotion · Dynamic Island",
+                                        "Chip": "Apple A16 Bionic",
+                                        "Cámara": "48 MP principal + ultra gran angular + teleobjetivo",
+                                        "Sistema": "iOS"
+                                }
                         },
                         {
                                 "nombre": "iphone 14 pro max 128gb usado",
                                 "inicial": 1200000,
                                 "cuota": 200008,
-                                "quincenas": 12
+                                "quincenas": 12,
+                                "specs": {
+                                        "Pantalla": "6.7\" Super Retina XDR · ProMotion · Dynamic Island",
+                                        "Chip": "Apple A16 Bionic",
+                                        "Cámara": "48 MP principal + ultra gran angular + teleobjetivo",
+                                        "Sistema": "iOS"
+                                }
                         },
                         {
                                 "nombre": "iphone 14 pro max 256gb usado",
                                 "inicial": 1400000,
                                 "cuota": 200008,
-                                "quincenas": 12
+                                "quincenas": 12,
+                                "specs": {
+                                        "Pantalla": "6.7\" Super Retina XDR · ProMotion · Dynamic Island",
+                                        "Chip": "Apple A16 Bionic",
+                                        "Cámara": "48 MP principal + ultra gran angular + teleobjetivo",
+                                        "Sistema": "iOS"
+                                }
                         },
                         {
                                 "nombre": "iphone 15 128gb usado",
                                 "inicial": 1000000,
                                 "cuota": 200008,
-                                "quincenas": 12
+                                "quincenas": 12,
+                                "specs": {
+                                        "Pantalla": "6.1\" Super Retina XDR · Dynamic Island",
+                                        "Chip": "Apple A16 Bionic",
+                                        "Cámara": "48 MP principal · ultra gran angular",
+                                        "Sistema": "iOS"
+                                }
                         },
                         {
                                 "nombre": "iphone 15 pro 128 gb usado",
                                 "inicial": 1200000,
                                 "cuota": 228045,
-                                "quincenas": 12
+                                "quincenas": 12,
+                                "specs": {
+                                        "Pantalla": "6.1\" Super Retina XDR · ProMotion · Titanio",
+                                        "Chip": "Apple A17 Pro",
+                                        "Cámara": "48 MP principal · teleobjetivo 3x",
+                                        "Sistema": "iOS"
+                                }
                         },
                         {
                                 "nombre": "iphone 15 pro 256 gb usado",
                                 "inicial": 1400000,
                                 "cuota": 228045,
-                                "quincenas": 12
+                                "quincenas": 12,
+                                "specs": {
+                                        "Pantalla": "6.1\" Super Retina XDR · ProMotion · Titanio",
+                                        "Chip": "Apple A17 Pro",
+                                        "Cámara": "48 MP principal · teleobjetivo 3x",
+                                        "Sistema": "iOS"
+                                }
                         },
                         {
                                 "nombre": "iphone 15 pro max 256gb usado",
                                 "inicial": 1500000,
                                 "cuota": 240009,
-                                "quincenas": 12
+                                "quincenas": 12,
+                                "specs": {
+                                        "Pantalla": "6.7\" Super Retina XDR · ProMotion · Titanio",
+                                        "Chip": "Apple A17 Pro",
+                                        "Cámara": "48 MP principal · teleobjetivo 5x",
+                                        "Sistema": "iOS"
+                                }
                         },
                         {
                                 "nombre": "iphone 16 128 gb usado",
                                 "inicial": 1400000,
                                 "cuota": 200008,
-                                "quincenas": 12
+                                "quincenas": 12,
+                                "specs": {
+                                        "Pantalla": "6.1\" Super Retina XDR OLED · Control de cámara",
+                                        "Chip": "Apple A18",
+                                        "Cámara": "48 MP Fusion · ultra gran angular",
+                                        "Sistema": "iOS"
+                                }
                         },
                         {
                                 "nombre": "iphone 16 pro 128 gb usado",
                                 "inicial": 1500000,
                                 "cuota": 286637,
-                                "quincenas": 12
+                                "quincenas": 12,
+                                "specs": {
+                                        "Pantalla": "6.3\" Super Retina XDR · ProMotion · Titanio",
+                                        "Chip": "Apple A18 Pro",
+                                        "Cámara": "48 MP Fusion · ultra gran angular 48 MP · teleobjetivo 5x",
+                                        "Sistema": "iOS"
+                                }
                         },
                         {
                                 "nombre": "iphone 16 pro 256gb usado",
                                 "inicial": 1600000,
                                 "cuota": 286637,
-                                "quincenas": 12
+                                "quincenas": 12,
+                                "specs": {
+                                        "Pantalla": "6.3\" Super Retina XDR · ProMotion · Titanio",
+                                        "Chip": "Apple A18 Pro",
+                                        "Cámara": "48 MP Fusion · ultra gran angular 48 MP · teleobjetivo 5x",
+                                        "Sistema": "iOS"
+                                }
                         },
                         {
                                 "nombre": "iphone 16 pro max 256gb usado",
                                 "inicial": 1800000,
                                 "cuota": 306317,
-                                "quincenas": 12
+                                "quincenas": 12,
+                                "specs": {
+                                        "Pantalla": "6.9\" Super Retina XDR · ProMotion · Titanio",
+                                        "Chip": "Apple A18 Pro",
+                                        "Cámara": "48 MP Fusion · ultra gran angular 48 MP · teleobjetivo 5x",
+                                        "Sistema": "iOS"
+                                }
                         },
                         {
                                 "nombre": "iphone 17 pro max 256gb usado",
                                 "inicial": 2500000,
                                 "cuota": 306317,
-                                "quincenas": 12
+                                "quincenas": 12,
+                                "specs": {
+                                        "Pantalla": "6.9\" Super Retina XDR · ProMotion 120 Hz · 3.000 nits",
+                                        "Chip": "Apple A19 Pro",
+                                        "Batería": "5.088 mAh · hasta 39 h de video",
+                                        "Cámara": "Triple 48 MP Fusion · zoom óptico 8x · 18 MP frontal",
+                                        "Sistema": "iOS"
+                                }
                         }
                 ]
         }
 };
 
-        let currentView = 'grid';
+
+        const MARCAS = [['iphone','Apple'],['ipad','Apple'],['honor','Honor'],['infinix','Infinix'],
+            ['kalley','Kalley'],['moto','Motorola'],['oppo','Oppo'],['redmi','Xiaomi'],['xiaomi','Xiaomi'],
+            ['xioami','Xiaomi'],['samsung','Samsung'],['tecno','Tecno'],['vivo','Vivo'],['zte','ZTE'],['tcl','TCL']];
+
+        function grupoDe(p) {
+            const n = p.nombre.toLowerCase();
+            if (p.category === 'iPhone con Cuota Inicial') return n.includes('usado') ? 'Usados' : 'Nuevos';
+            for (const [k, v] of MARCAS) if (n.includes(k)) return v;
+            return 'Otros';
+        }
+
+        function valorBase(p) { return p.tipo === 'sin_inicial' ? p.monto : p.inicial; }
+
+        function agrupar(products) {
+            const g = {};
+            products.forEach(p => { const k = grupoDe(p); (g[k] = g[k] || []).push(p); });
+            Object.values(g).forEach(arr => arr.sort((a, b) => valorBase(a) - valorBase(b)));
+            return Object.keys(g)
+                .sort((a, b) => valorBase(g[a][0]) - valorBase(g[b][0]))
+                .map(k => [k, g[k]]);
+        }
+
+        function slug(nombre) {
+            return nombre.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                .replace(/["']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        }
+
+        let visibles = [];
+        let fotoActual = 0;
+        let fotosOk = [];
+
+        function mostrarFoto(i) {
+            fotoActual = (i + fotosOk.length) % fotosOk.length;
+            const img = document.getElementById('carImg');
+            if (img) img.src = fotosOk[fotoActual];
+            document.querySelectorAll('.car-dot').forEach((d, k) => d.className = 'car-dot' + (k === fotoActual ? ' on' : ''));
+        }
+
+        function abrirFicha(idx) {
+            const p = visibles[idx];
+            if (!p) return;
+            const s = slug(p.nombre);
+            const etiqueta = p.tipo === 'sin_inicial' ? 'Monto máximo' : 'Cuota inicial';
+
+            let specsHTML = '<div class="specs-pend">Características por confirmar</div>';
+            if (p.specs && Object.keys(p.specs).length) {
+                specsHTML = '<table class="specs">' + Object.entries(p.specs)
+                    .map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('') + '</table>';
+            }
+
+            document.getElementById('modalBox').innerHTML = `
+                <button class="modal-close" onclick="cerrarFicha()" aria-label="Cerrar">&times;</button>
+                <h2>${p.nombre}</h2>
+                <div class="modal-cat">${p.category} · ${p.quincenas} quincenas</div>
+                <div id="fotoZona"><div class="no-photo"><span>📷</span><span>Fotos pendientes</span></div></div>
+                <div class="modal-money">
+                    <div class="money-card"><div class="lbl">${etiqueta}</div><div class="val">${formatCurrency(valorBase(p))}</div></div>
+                    <div class="money-card"><div class="lbl">Cuota quincenal</div><div class="val">${formatCurrency(p.cuota)}</div></div>
+                </div>
+                <div class="specs-title">Características</div>
+                ${specsHTML}`;
+
+            document.getElementById('modalBg').classList.add('open');
+            document.body.style.overflow = 'hidden';
+
+            fotosOk = [];
+            const EXT = ['jpg', 'jpeg', 'png', 'webp', 'JPG', 'PNG'];
+            const hallazgos = {};
+            let faltan = 3;
+
+            function slotListo() {
+                if (--faltan) return;
+                fotosOk = [1, 2, 3].map(n => hallazgos[n]).filter(Boolean);
+                pintarCarrusel();
+            }
+
+            [1, 2, 3].forEach(n => {
+                let e = 0;
+                (function probar() {
+                    if (e >= EXT.length) return slotListo();
+                    const ruta = `img/${s}-${n}.${EXT[e++]}`;
+                    const test = new Image();
+                    test.onload = () => { hallazgos[n] = ruta; slotListo(); };
+                    test.onerror = probar;
+                    test.src = ruta;
+                })();
+            });
+        }
+
+        function pintarCarrusel() {
+            if (!fotosOk.length) return;
+            const zona = document.getElementById('fotoZona');
+            if (!zona) return;
+            const flechas = fotosOk.length > 1
+                ? '<button class="car-btn car-prev" onclick="mostrarFoto(fotoActual-1)" aria-label="Anterior">&#8249;</button><button class="car-btn car-next" onclick="mostrarFoto(fotoActual+1)" aria-label="Siguiente">&#8250;</button>'
+                : '';
+            const puntos = fotosOk.length > 1
+                ? '<div class="car-dots">' + fotosOk.map((_, k) => `<div class="car-dot${k ? '' : ' on'}" onclick="mostrarFoto(${k})"></div>`).join('') + '</div>'
+                : '';
+            zona.innerHTML = `<div class="carousel"><img id="carImg" src="${fotosOk[0]}" alt="">${flechas}</div>${puntos}`;
+            fotoActual = 0;
+        }
+
+        function cerrarFicha() {
+            document.getElementById('modalBg').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        const BENEFICIOS_GLOBALES = ["Aplica para reportados", "Aplica sin vida crediticia", "Aplica con PPT"];
+
+        function secciones(products) {
+            if (currentCategory !== 'all') return [[null, agrupar(products)]];
+            const porCat = {};
+            products.forEach(p => { (porCat[p.category] = porCat[p.category] || []).push(p); });
+            return Object.keys(dataCatalogo)
+                .filter(c => porCat[c])
+                .map(c => [c, agrupar(porCat[c])]);
+        }
+
+        function renderBenefits() {
+            const box = document.getElementById('benefitsBox');
+            const cats = currentCategory === 'all' ? Object.keys(dataCatalogo) : [currentCategory];
+            const conBen = cats.filter(c => dataCatalogo[c] && dataCatalogo[c].beneficios.length);
+            let cuerpo = '';
+            if (conBen.length) {
+                cuerpo += '<div class="ben-title">🎁 Promoción de pago puntual</div>';
+                conBen.forEach(c => {
+                    if (currentCategory === 'all') cuerpo += `<div class="ben-cat">${c}</div>`;
+                    cuerpo += '<div class="ben-chips">' +
+                        dataCatalogo[c].beneficios.map(b => `<span class="ben-chip">${b}</span>`).join('') +
+                        '</div>';
+                });
+            }
+            cuerpo += '<div class="ben-title ben-title-2">✅ Aplica para todos los planes</div>' +
+                '<div class="ben-chips">' +
+                BENEFICIOS_GLOBALES.map(b => `<span class="ben-chip ben-chip-2">${b}</span>`).join('') +
+                '</div>';
+            box.innerHTML = `<div class="ben-box">${cuerpo}</div>`;
+        }
+
+        let currentView = 'table';
         let currentCategory = 'all';
         let currentSearch = '';
 
@@ -816,54 +1163,44 @@ const dataCatalogo = {
             const products = filterProducts();
             const grid = document.getElementById('productsGrid');
             grid.innerHTML = '';
-
             if (products.length === 0) {
                 document.getElementById('emptyState').classList.remove('hidden');
                 grid.classList.add('hidden');
                 document.getElementById('productsTable').classList.add('hidden');
                 return;
             }
-
             document.getElementById('emptyState').classList.add('hidden');
             grid.classList.remove('hidden');
-
-            products.forEach(product => {
-                const card = document.createElement('div');
-                card.className = 'product-card';
-
-                let infoHTML = '';
-                if (product.tipo === 'sin_inicial') {
-                    infoHTML = `
-                        <div class="info-row">
-                            <span class="info-label">Monto Máximo a Financiar</span>
-                            <span class="info-value">${formatCurrency(product.monto)}</span>
+            visibles = []; let vi = 0;
+            secciones(products).forEach(([cat, grupos]) => {
+              if (cat) {
+                const ch = document.createElement('div');
+                ch.className = 'cat-head';
+                ch.textContent = cat;
+                grid.appendChild(ch);
+              }
+              grupos.forEach(([marca, items]) => {
+                const h = document.createElement('div');
+                h.className = 'brand-head';
+                h.textContent = `${marca} · ${items.length} equipo${items.length > 1 ? 's' : ''}`;
+                grid.appendChild(h);
+                items.forEach(product => {
+                    const idx = vi++; visibles.push(product);
+                    const card = document.createElement('div');
+                    card.className = 'product-card';
+                    card.onclick = () => abrirFicha(idx);
+                    const etiqueta = product.tipo === 'sin_inicial' ? 'Monto Máximo a Financiar' : 'Cuota Inicial';
+                    card.innerHTML = `
+                        <div class="product-name">${product.nombre}</div>
+                        <div class="product-info">
+                            <div class="info-row"><span class="info-label">${etiqueta}</span><span class="info-value">${formatCurrency(valorBase(product))}</span></div>
+                            <div class="info-row"><span class="info-label">Cuota ${product.quincenas}Q</span><span class="info-value">${formatCurrency(product.cuota)}</span></div>
                         </div>
-                        <div class="info-row">
-                            <span class="info-label">Cuota ${product.quincenas}Q</span>
-                            <span class="info-value">${formatCurrency(product.cuota)}</span>
-                        </div>
-                    `;
-                } else {
-                    infoHTML = `
-                        <div class="info-row">
-                            <span class="info-label">Cuota Inicial</span>
-                            <span class="info-value">${formatCurrency(product.inicial)}</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">Cuota ${product.quincenas}Q</span>
-                            <span class="info-value">${formatCurrency(product.cuota)}</span>
-                        </div>
-                    `;
-                }
-
-                card.innerHTML = `
-                    <div class="product-name">${product.nombre}</div>
-                    <div class="product-info">${infoHTML}</div>
-                    <div class="quincena-badge">${product.quincenas} quincenas</div>
-                `;
-                grid.appendChild(card);
+                        <div class="quincena-badge">${product.quincenas} quincenas</div>`;
+                    grid.appendChild(card);
+                });
+              });
             });
-
             document.getElementById('productCount').textContent = `Mostrando: ${products.length} productos`;
         }
 
@@ -871,42 +1208,34 @@ const dataCatalogo = {
             const products = filterProducts();
             const tableDiv = document.getElementById('productsTable');
             tableDiv.innerHTML = '';
-
             if (products.length === 0) {
                 document.getElementById('emptyState').classList.remove('hidden');
                 document.getElementById('productsGrid').classList.add('hidden');
                 tableDiv.classList.add('hidden');
                 return;
             }
-
             document.getElementById('emptyState').classList.add('hidden');
             document.getElementById('productsGrid').classList.add('hidden');
             tableDiv.classList.remove('hidden');
-
-            const headers = ['Producto', 'Categoría', 'Cuotas', 'Cuota Inicial', 'Cuota Quincena'];
-            let html = '<table><thead><tr>';
-            headers.forEach(h => html += `<th>${h}</th>`);
-            html += '</tr></thead><tbody>';
-
-            products.forEach(product => {
-                const montoValue = product.tipo === 'sin_inicial' ? product.monto : product.inicial;
-                html += `
-                    <tr>
-                        <td>${product.nombre}</td>
-                        <td>${product.category}</td>
-                        <td>${product.quincenas}Q</td>
-                        <td>${formatCurrency(montoValue)}</td>
-                        <td>${formatCurrency(product.cuota)}</td>
-                    </tr>
-                `;
+            visibles = []; let vi = 0;
+            let html = '<table><thead><tr><th>Producto</th><th>Cuota Inicial</th><th>Cuota Quincena</th><th>Plazo</th></tr></thead><tbody>';
+            secciones(products).forEach(([cat, grupos]) => {
+              if (cat) html += `<tr class="cat-row"><td colspan="4">${cat}</td></tr>`;
+              grupos.forEach(([marca, items]) => {
+                html += `<tr class="brand-row"><td colspan="4">${marca} <span class="brand-count">· ${items.length} equipo${items.length > 1 ? 's' : ''}</span></td></tr>`;
+                items.forEach(p => {
+                    const idx = vi++; visibles.push(p);
+                    html += `<tr onclick="abrirFicha(${idx})"><td>${p.nombre}</td><td>${formatCurrency(valorBase(p))}</td><td>${formatCurrency(p.cuota)}</td><td>${p.quincenas}Q</td></tr>`;
+                });
+              });
             });
-
             html += '</tbody></table>';
             tableDiv.innerHTML = html;
             document.getElementById('productCount').textContent = `Mostrando: ${products.length} productos`;
         }
 
         function render() {
+            renderBenefits();
             if (currentView === 'grid') {
                 renderGrid();
             } else {
@@ -940,6 +1269,16 @@ const dataCatalogo = {
             document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
             document.getElementById('tableViewBtn').classList.add('active');
             render();
+        });
+
+        document.getElementById('modalBg').addEventListener('click', e => {
+            if (e.target.id === 'modalBg') cerrarFicha();
+        });
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') cerrarFicha();
+            if (!document.getElementById('modalBg').classList.contains('open') || fotosOk.length < 2) return;
+            if (e.key === 'ArrowLeft') mostrarFoto(fotoActual - 1);
+            if (e.key === 'ArrowRight') mostrarFoto(fotoActual + 1);
         });
 
         render();
