@@ -811,13 +811,20 @@
 
         function valorBase(p) { return p.tipo === 'sin_inicial' ? p.monto : p.inicial; }
 
+        // Los equipos nuevos van primero: es lo que el cliente busca de entrada.
+        // Los usados y los de exhibicion quedan despues, sin importar que sean
+        // mas baratos.
+        function prioridadGrupo(g) {
+            return /usado|exhibi/i.test(g) ? 1 : 0;
+        }
+
         function agrupar(products) {
             const g = {};
             products.forEach(p => { const k = grupoDe(p); (g[k] = g[k] || []).push(p); });
             Object.values(g).forEach(arr => arr.sort((a, b) => valorBase(a) - valorBase(b)));
             const orden = ['Exhibición', 'Nuevos'];
             return Object.keys(g)
-                .sort((a, b) => orden.indexOf(a) - orden.indexOf(b))
+                .sort((a, b) => (prioridadGrupo(a) - prioridadGrupo(b)) || (orden.indexOf(a) - orden.indexOf(b)))
                 .map(k => [k, g[k]]);
         }
 

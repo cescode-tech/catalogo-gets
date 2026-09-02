@@ -1967,13 +1967,20 @@
 
         function valorBase(p) { return p.tipo === 'contado' ? p.precio : (p.tipo === 'sin_inicial' ? p.monto : p.inicial); }
 
+        // Los equipos nuevos van primero: es lo que el cliente busca de entrada.
+        // Los usados y los de exhibicion quedan despues, sin importar que sean
+        // mas baratos.
+        function prioridadGrupo(g) {
+            return /usado|exhibi/i.test(g) ? 1 : 0;
+        }
+
         function agrupar(products) {
             const g = {};
             products.forEach(p => { const k = grupoDe(p); (g[k] = g[k] || []).push(p); });
             const esAccesorio = p => /accesorio|cable|cubo|cargador/i.test(p.nombre);
             Object.values(g).forEach(arr => arr.sort((a, b) =>
                 (esAccesorio(a) - esAccesorio(b)) || (valorBase(a) - valorBase(b))));
-            const orden = ["Samsung", "Teléfonos Económicos", "ZTE / Nubia", "Xiaomi / Redmi", "Honor", "Motorola", "Tecno", "Infinix", "Vivo", "Oppo", "Tablets", "iPhone Usado", "Apple Watch", "Patinetas y Movilidad", "Sonido Premium", "iPad", "iPhone Nuevo", "MacBook", "Apple - Accesorios", "Gaming, Tecnología y Accesorios"];
+            const orden = ["iPhone Nuevo", "iPhone Usado", "iPad", "Apple Watch", "MacBook", "Apple - Accesorios", "Samsung", "Teléfonos Económicos", "ZTE / Nubia", "Xiaomi / Redmi", "Honor", "Motorola", "Tecno", "Infinix", "Vivo", "Oppo", "Tablets", "Patinetas y Movilidad", "Sonido Premium", "Gaming, Tecnología y Accesorios"];
             return Object.keys(g)
                 .sort((a, b) => orden.indexOf(a) - orden.indexOf(b))
                 .map(k => [k, g[k]]);
