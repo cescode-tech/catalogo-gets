@@ -128,12 +128,51 @@
         .brand-head { font-size:1rem; font-weight:700; color:#fff; background:rgba(255,255,255,0.18); padding:8px 16px; border-radius:8px; margin:26px 0 14px; grid-column:1/-1; }
         .empty-state { text-align: center; padding: 40px; color: rgba(255,255,255,0.8); font-size: 1.1rem; }
         .stats { text-align: center; color: rgba(255,255,255,0.9); margin-top: 20px; font-size: 0.95rem; }
-        @media (max-width: 768px) {
-            .header h1 { font-size: 1.8rem; }
-            .products-grid { grid-template-columns: 1fr; }
-            .controls { flex-direction: column; }
-            .search-box { max-width: 100%; }
+
+        /* ---- Celular ----------------------------------------------------
+           La tabla de 5 columnas mide 509px y la pantalla 375px: se sale.
+           En celular cada fila se convierte en una tarjeta apilada, con el
+           nombre del campo a la izquierda y el valor a la derecha.        */
+        @media (max-width: 640px) {
+            body { padding: 12px; }
+            .header { padding: 22px 14px; margin-bottom: 20px; }
+            .header h1 { font-size: 1.5rem; }
+            .header .subtitle { font-size: 0.95rem; }
+            .stats { margin-top: 10px; font-size: 0.85rem; }
+            .category-tabs { gap: 7px; margin-bottom: 18px; }
+            .tab-btn { padding: 9px 14px; font-size: 0.87rem; }
+            .view-btn { padding: 8px 14px; font-size: 0.87rem; }
+
+            .table-view table, .table-view tbody, .table-view tr, .table-view td { display: block; width: 100%; }
+            .table-view thead { display: none; }
+            .table-view tbody tr:not(.brand-row):not(.cat-row) {
+                border-bottom: 7px solid #efeaf7; padding: 10px 0 12px;
+            }
+            .table-view td {
+                border: none; padding: 5px 16px;
+                display: flex; justify-content: space-between; align-items: baseline; gap: 14px;
+            }
+            .table-view td::before {
+                content: attr(data-label);
+                color: #8a7aa8; font-size: 0.82rem; font-weight: 600; flex-shrink: 0;
+            }
+            .table-view td:first-child {
+                display: block; font-weight: 700; color: #5c388e;
+                font-size: 1.02rem; line-height: 1.35; padding-bottom: 6px;
+            }
+            .table-view td:first-child::before { display: none; }
+            .table-view td:last-child { color: #5c388e; font-weight: 700; }
+            .brand-row td, .cat-row td { display: block; }
+
+            .ben-box { padding: 0; }
+            .ben-sum { padding: 14px 16px; }
+            .ben-cuerpo { padding: 0 16px 16px; }
+            .ben-chip, .ben-chip-2 { font-size: 0.84rem; }
         }
+        .ben-sum { cursor: pointer; font-size: 1.02rem; font-weight: 700; color: #1d6b3a; list-style: none; }
+        .ben-sum::-webkit-details-marker { display: none; }
+        .ben-sum::after { content: ' ▾'; }
+        details[open] .ben-sum::after { content: ' ▴'; }
     </style>
 </head>
 <body>
@@ -1274,7 +1313,9 @@ const dataCatalogo = {
                 '<div class="ben-chips">' +
                 BENEFICIOS_GLOBALES.map(b => `<span class="ben-chip ben-chip-2">${b}</span>`).join('') +
                 '</div>';
-            box.innerHTML = `<div class="ben-box">${cuerpo}</div>`;
+            box.innerHTML = `<details class="ben-box" ${window.innerWidth > 640 ? 'open' : ''}>`
+                + `<summary class="ben-sum">🎁 Beneficios y condiciones</summary>`
+                + `<div class="ben-cuerpo">${cuerpo}</div></details>`;
         }
 
         let currentView = 'table';
@@ -1387,7 +1428,18 @@ const dataCatalogo = {
             });
             html += '</tbody></table>';
             tableDiv.innerHTML = html;
+            etiquetarCeldas(tableDiv);
             document.getElementById('productCount').textContent = `Mostrando: ${products.length} productos`;
+        }
+
+        // En celular la tabla se apila y cada celda muestra el nombre de su
+        // columna. Se toma de los encabezados para que nunca se desincronice.
+        function etiquetarCeldas(cont) {
+            const th = [...cont.querySelectorAll('thead th')].map(t => t.textContent);
+            cont.querySelectorAll('tbody tr').forEach(tr => {
+                if (tr.classList.contains('brand-row') || tr.classList.contains('cat-row')) return;
+                [...tr.children].forEach((td, i) => td.setAttribute('data-label', th[i] || ''));
+            });
         }
 
         function render() {
